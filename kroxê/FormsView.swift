@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct AddReceita: View {
+struct FormsView: View {
      
     @Environment(\.modelContext)
     private var modelContext
@@ -130,14 +130,14 @@ struct AddReceita: View {
 //        }
         
         Spacer()
-        
-        Button ("Adicionar Carreira", systemImage: "plus") {
-            print ("ok")
-        }
-        .font(Font.system(size: 20, weight:Font.Weight.bold))
-        .tint(.blue)
-        .buttonStyle(.borderedProminent)
-        .padding(.vertical, 10)
+//        
+//        Button ("Adicionar Carreira", systemImage: "plus") {
+//            print ("ok")
+//        }
+//        .font(Font.system(size: 20, weight:Font.Weight.bold))
+//        .tint(.blue)
+//        .buttonStyle(.borderedProminent)
+//        .padding(.vertical, 10)
         
     }
     
