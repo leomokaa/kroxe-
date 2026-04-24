@@ -9,7 +9,10 @@ import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct FormsView: View {
+struct AddReceita: View {
+     
+    @Environment(\.modelContext)
+    private var modelContext
     
     //  @State private var date = Date()
     @State var hours: Int = 0

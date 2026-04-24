@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct kroxe_App: App {
     var body: some Scene {
         WindowGroup {
             PageView()
-        }
+        }.modelContainer(for: [Receita.self])
     }
 }
