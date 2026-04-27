@@ -10,16 +10,23 @@ import SwiftUI
 import SwiftData
 
 struct ListView: View {
-    @Query private var receitasList: [Receita]
+    @Query private var receitasList: [recipe]
     var body: some View {
         NavigationStack {
-            VStack {
-                List{
+            ScrollView {
+                VStack(spacing: 20) {
+                    
+                    HStack {
+                        Text("Minhas Receitas")
+                            .font(.largeTitle.bold())
+                        Spacer()
+                    }
                 }
             }
         }
     }
 }
-#Preview {
-    ListView()
-}
+    
+    #Preview {
+        ListView()
+    }
