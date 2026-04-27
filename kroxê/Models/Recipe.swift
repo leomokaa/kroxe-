@@ -10,7 +10,7 @@ import Foundation
 import SwiftData
 import PhotosUI
 
-@Model class recipe {
+@Model class Recipe {
     var name: String
     //      var image: UIImage?    //por favor, não mexer
     var link: String?

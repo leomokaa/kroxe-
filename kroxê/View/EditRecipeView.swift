@@ -1,25 +1,24 @@
 //
-//  FormsView.swift
+//  EditRecipeView.swift
 //  kroxê
 //
-//  Created by User on 22/04/26.
+//  Created by User on 24/04/26.
 //
 
 import SwiftUI
 import SwiftData
 import PhotosUI
 
-struct CreateRecipeView: View {
+struct EditRecipeView: View {
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext)
-    private var modelContext
+    var recipe: Recipe
     
-    @State var name: String = ""
-    @State var link: String = ""
-    @State var yarn: Int = 0   //tirar textfield?
-    @State var needle: Float = 0  //tirar textfield?
-    @State var text: String = ""
+    @State var nameEdit: String = ""
+    @State var linkEdit: String = ""
+    @State var yarnEdit: Int = 0
+    @State var needleEdit: Float = 0
+    @State var textEdit: String = ""
     @State var selectedItems: [PhotosPickerItem] = []
     @State private var imageData: Image?
     @State private var newImage: PhotosPickerItem?
@@ -41,7 +40,7 @@ struct CreateRecipeView: View {
             Spacer().frame(width: 60)
             
             Button ("", systemImage: "checkmark.circle.fill") {
-                createRecipe()
+                EditRecipe()
                 dismiss()
             }
             .disabled(submitPermission())
@@ -56,53 +55,29 @@ struct CreateRecipeView: View {
                 }
                 
                 Section(header: Text("Nome da Receita:")){
-                    TextField("Digite Aqui...", text: $name)
+                    TextField("Digite Aqui...", text: $nameEdit)
                 }
-
+                
                 Section(header: Text("Tamanho da Agulha (mm):")){
-                    TextField("Digite Aqui...", value: $needle, format: .number)  //tirar textfield?
+                    TextField("Digite Aqui...", value: $needleEdit, format: .number)  //tirar textfield?
                 }
                 
                 Section(header: Text("Quantidade de Novelos:")) {
-                    TextField("Digite Aqui...", value: $yarn, format: .number)  //tirar textfield?
+                    TextField("Digite Aqui...", value: $yarnEdit, format: .number)  //tirar textfield?
                 }
                 
                 Section(header: Text("Link Adicional:")) {
-                    TextField("Digite Aqui...", text: $link)
+                    TextField("Digite Aqui...", text: $linkEdit)  //TODO: fazer textfields aparecerem o valor atual
                 }
                 
                 Section(header: Text("Receita:")) {
-                    TextField("Digite Aqui...", text: $text, axis: .vertical)
+                    TextField("Digite Aqui...", text: $textEdit, axis: .vertical)
                         .lineLimit(10, reservesSpace: true)
                 }
                 
             }
+            
         }
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                Button ("", systemImage: "chevron.backward.circle.fill") {
-//                    //                        print ("ok")
-//                }
-//                .font(Font.system(size: 40, weight:Font.Weight.bold))
-//                .tint(.gray)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                HStack {
-//                    Text ("Criar Receita")
-//                        .font(Font.system(size: 25, weight:Font.Weight.bold))
-//                }
-//            }
-//            
-//            ToolbarItem(placement: .topBarTrailing) {
-//                Button ("", systemImage: "checkmark.circle.fill") {
-//                    //                        print ("ok")
-//                }
-//                .font(Font.system(size: 40, weight:Font.Weight.bold))
-//                .tint(.green)
-//            }
-//        }
-        
     }
     
     private var photoPicker: some View {
@@ -133,28 +108,27 @@ struct CreateRecipeView: View {
             }
         }
     }
-
-    func createRecipe() {
-        let newRecipe = recipe(
-            name: name,
-            link: link,
-            yarn: yarn,
-            needle: needle,
-            text: text
-        )
-        modelContext.insert(newRecipe)
+    
+    func EditRecipe() {
+        recipe.name = nameEdit
+        recipe.link = linkEdit
+        recipe.yarn = yarnEdit
+        recipe.needle = needleEdit
+        //TODO: adicionar a parte de foto
     }
     
     func submitPermission() -> Bool {
-        if (name == "" || yarn == 0 || needle == 0.0 || text == "") {
+        if (nameEdit == "" || yarnEdit == 0 || needleEdit == 0.0 || textEdit == "") {
             return true
         } else {
             return false
         }
     }
+    
 }
 
-
 #Preview {
-    CreateRecipeView()
+    EditRecipeView(
+        recipe: Recipe(name: "Amanda", yarn: 100, needle: 10.0, text: "teste")
+        )
 }
