@@ -5,12 +5,12 @@
 //  Created by User on 23/04/26.
 //
 
-
-import Foundation
 import SwiftData
 import PhotosUI
 
-@Model class Recipe {
+@Model
+class Recipe {
+    var id = UUID()
     var name: String
     //      var image: UIImage?    //por favor, não mexer
     var link: String?
