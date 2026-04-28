@@ -29,6 +29,10 @@ struct RecipesListView: View {
         }
     }
     
+    init() {
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
+    }
+    
     var body: some View {
         NavigationStack {
             VStack (alignment: .leading, spacing: 20) {
