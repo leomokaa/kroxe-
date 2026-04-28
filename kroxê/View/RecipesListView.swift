@@ -15,6 +15,10 @@ struct RecipesListView: View {
         Recipe(name: "Estrelinha", link: "blablbla", yarn: 1, needle: 2.0, text: "fafafa")
     ]
     
+    init() {
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
+    }
+    
     var body: some View {
         NavigationStack {
             VStack (alignment: .leading, spacing: 20) {
