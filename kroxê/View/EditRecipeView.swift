@@ -24,75 +24,40 @@ struct EditRecipeView: View {
     @State private var newImage: PhotosPickerItem?
     
     var body: some View {
-        Spacer().frame(height: 10)
-        HStack {
-            Button ("", systemImage: "chevron.backward.circle.fill") {
-                dismiss()
-            }
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.gray)
-            
-            Spacer().frame(width: 60)
-            
-            Text ("Criar Receita")
-                .font(Font.system(size: 25, weight:Font.Weight.bold))
-            
-            Spacer().frame(width: 60)
-            
-            Button ("", systemImage: "checkmark.circle.fill") {
-                EditRecipe()
-                dismiss()
-            }
-            .disabled(submitPermission())
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.green)
-        }
+        
         NavigationStack {
             Form{
-                
                 Section(header: Text("Imagem:")){
                     photoPicker
                 }
-                
                 Section(header: Text("Nome da Receita:")){
                     TextField("Digite Aqui...", text: $nameEdit)
                 }
-                
                 Section(header: Text("Informações adicionais:")){
-                    
                     HStack {
-                        
                         Stepper(
                             "Tamanho da Agulha: \(needleEdit.formatted(.number.precision(.fractionLength(1))))",
                             value: $needleEdit,
                             in: 0.0 ... 25,
                             step: 0.5
                         )
-                        
-
                     }
                     HStack {
-                        
                         Stepper(
                             "Quantidade de Novelos: \(yarnEdit)",
                             value: $yarnEdit,
                             in: 0 ... 300,
                             step: 1
                         )
-                        
                     }
                 }
-                
-                
                 Section(header: Text("Link Adicional:")) {
                     TextField("Digite Aqui...", text: $linkEdit)  //TODO: fazer textfields aparecerem o valor atual
                 }
-                
                 Section(header: Text("Receita:")) {
                     TextField("Digite Aqui...", text: $textEdit, axis: .vertical)
                         .lineLimit(10, reservesSpace: true)
                 }
-                
             }
             .onAppear {
                 nameEdit = recipe.name
@@ -101,7 +66,31 @@ struct EditRecipeView: View {
                 linkEdit = recipe.link ?? ""
                 textEdit = recipe.text
             }
-            
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button ("", systemImage: "chevron.backward") {
+                    dismiss()
+                }
+                .font(Font.system(size: 40, weight:Font.Weight.bold))
+                .tint(.gray)
+            }
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text ("Criar Receita")
+                        .font(Font.system(size: 25, weight:Font.Weight.bold))
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button ("", systemImage: "checkmark") {
+                    EditRecipe()
+                    dismiss()
+                }
+                .disabled(submitPermission())
+                .font(Font.system(size: 40, weight:Font.Weight.bold))
+                .tint(.green)
+            }
         }
     }
     
@@ -152,11 +141,10 @@ struct EditRecipeView: View {
             return false
         }
     }
-    
 }
 
 #Preview {
     EditRecipeView(
         recipe: Recipe(name: "Amanda", yarn: 100, needle: 10.0, text: "teste")
-        )
+    )
 }

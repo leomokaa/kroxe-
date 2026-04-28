@@ -25,101 +25,89 @@ struct CreateRecipeView: View {
     @State private var newImage: PhotosPickerItem? = nil
     
     var body: some View {
-        Spacer().frame(height: 10)
-        HStack {
-            Button ("", systemImage: "chevron.backward.circle.fill") {
-                dismiss()
-            }
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.gray)
-            
-            Spacer().frame(width: 60)
-            
-            Text ("Criar Receita")
-                .font(Font.system(size: 25, weight:Font.Weight.bold))
-            
-            Spacer().frame(width: 60)
-            
-            Button ("", systemImage: "checkmark.circle.fill") {
-                createRecipe()
-                dismiss()
-            }
-            .disabled(submitPermission())
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.green)
-        }
+        //        Spacer().frame(height: 10)
+        //        HStack {
+        //            Button ("", systemImage: "chevron.backward.circle.fill") {
+        //                dismiss()
+        //            }
+        //            .font(Font.system(size: 40, weight:Font.Weight.bold))
+        //            .tint(.gray)
+        //
+        //            Spacer().frame(width: 60)
+        //
+        //            Text ("Criar Receita")
+        //                .font(Font.system(size: 25, weight:Font.Weight.bold))
+        //
+        //            Spacer().frame(width: 60)
+        //
+        //            Button ("", systemImage: "checkmark.circle.fill") {
+        //                createRecipe()
+        //                dismiss()
+        //            }
+        //            .disabled(submitPermission())
+        //            .font(Font.system(size: 40, weight:Font.Weight.bold))
+        //            .tint(.green)
+        //        }
         NavigationStack {
             Form{
-                
                 Section(header: Text("Imagem:")){
                     photoPicker
                 }
-                
                 Section(header: Text("Nome da Receita:")){
                     TextField("Digite Aqui...", text: $name)
                 }
-
                 Section(header: Text("Informações adicionais:")){
-                    
                     HStack {
-                        
                         Stepper(
                             "Tamanho da Agulha: \(needle.formatted(.number.precision(.fractionLength(1))))",
                             value: $needle,
                             in: 0.0 ... 25,
                             step: 0.5
                         )
-                        
-
                     }
                     HStack {
-                        
                         Stepper(
                             "Quantidade de Novelos: \(yarn)",
                             value: $yarn,
                             in: 0 ... 300,
                             step: 1
                         )
-                        
                     }
                 }
-                
                 Section(header: Text("Link Adicional:")) {
                     TextField("Digite Aqui...", text: $link)
                 }
-                
                 Section(header: Text("Receita:")) {
                     TextField("Digite Aqui...", text: $text, axis: .vertical)
                         .lineLimit(10, reservesSpace: true)
                 }
-                
             }
         }
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                Button ("", systemImage: "chevron.backward.circle.fill") {
-//                    //                        print ("ok")
-//                }
-//                .font(Font.system(size: 40, weight:Font.Weight.bold))
-//                .tint(.gray)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                HStack {
-//                    Text ("Criar Receita")
-//                        .font(Font.system(size: 25, weight:Font.Weight.bold))
-//                }
-//            }
-//            
-//            ToolbarItem(placement: .topBarTrailing) {
-//                Button ("", systemImage: "checkmark.circle.fill") {
-//                    //                        print ("ok")
-//                }
-//                .font(Font.system(size: 40, weight:Font.Weight.bold))
-//                .tint(.green)
-//            }
-//        }
-        
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button ("", systemImage: "chevron.backward") {
+                    dismiss()
+                }
+                .font(Font.system(size: 40, weight:Font.Weight.bold))
+                .tint(.gray)
+            }
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text ("Criar Receita")
+                        .font(Font.system(size: 25, weight:Font.Weight.bold))
+                }
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button ("", systemImage: "checkmark") {
+                    createRecipe()
+                    dismiss()
+                }
+                .disabled(submitPermission())
+                .font(Font.system(size: 40, weight:Font.Weight.bold))
+                .tint(.green)
+            }
+        }
     }
     
     private var photoPicker: some View {
@@ -150,7 +138,7 @@ struct CreateRecipeView: View {
             }
         }
     }
-
+    
     func createRecipe() {
         let newRecipe = Recipe(
             name: name,
