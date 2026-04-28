@@ -23,25 +23,15 @@ struct CardRecipeView: View {
                         .font(.title2.bold())
                     
                     HStack (spacing: 8){
-                        HStack (spacing: 4){
-                            Image(systemName: "wand.and.outline")
-                            Text("Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
-                        }
-                        .font(.footnote)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 6)
-                        .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 4))
+                        TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
                         
                         if (!(recipe.yarn == 0)) {
-                            HStack (spacing: 4){
-                                Image(systemName: "circle")
-                                if (!(recipe.yarn == 1)) { Text("\(recipe.yarn) Novelos")}
-                                else { Text("\(recipe.yarn) Novelo")}
+                            if (!(recipe.yarn == 1)) {
+                                TagCardView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelos")
                             }
-                            .font(.footnote)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 6)
-                            .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 4))
+                            else {
+                                TagCardView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelo")
+                            }
                         }
                     }
                 }
@@ -51,7 +41,7 @@ struct CardRecipeView: View {
             .padding(.horizontal, 10)
             .padding(.top, 10)
             .padding(.bottom, 15)
-            .background(Color.white, in: RoundedRectangle(cornerRadius: 15))
+            .background(Color.cremeBranco, in: RoundedRectangle(cornerRadius: 15))
         }
     }
         

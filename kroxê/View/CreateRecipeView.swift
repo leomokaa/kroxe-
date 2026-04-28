@@ -17,120 +17,97 @@ struct CreateRecipeView: View {
     
     @State var name: String = ""
     @State var link: String = ""
-    @State var yarn: Int = 0   //tirar textfield?
-    @State var needle: Float = 0  //tirar textfield?
+    @State var yarn: Int = 0
+    @State var needle: Float = 0
     @State var text: String = ""
     @State var selectedItems: [PhotosPickerItem] = []
     @State private var imageData: Data? = nil
     @State private var newImage: PhotosPickerItem? = nil
     
     var body: some View {
-        //        Spacer().frame(height: 10)
-        //        HStack {
-        //            Button ("", systemImage: "chevron.backward.circle.fill") {
-        //                dismiss()
-        //            }
-        //            .font(Font.system(size: 40, weight:Font.Weight.bold))
-        //            .tint(.gray)
-        //
-        //            Spacer().frame(width: 60)
-        //
-        //            Text ("Criar Receita")
-        //                .font(Font.system(size: 25, weight:Font.Weight.bold))
-        //
-        //            Spacer().frame(width: 60)
-        //
-        //            Button ("", systemImage: "checkmark.circle.fill") {
-        //                createRecipe()
-        //                dismiss()
-        //            }
-        //            .disabled(submitPermission())
-        //            .font(Font.system(size: 40, weight:Font.Weight.bold))
-        //            .tint(.green)
-        //        }
-        NavigationStack {
-            Form{
-                Section(header: Text("Imagem:")){
-                    photoPicker
+        Form{
+            Section(){
+                photoPicker
+            }
+            Section(header: Text("Nome da Receita*")){
+                TextField("Digite Aqui...", text: $name)
+            }
+            .listRowBackground(Color.cremeBranco)
+            Section(header: Text("Informações adicionais:")){
+                HStack {
+                    Stepper(
+                        "Tamanho da Agulha: \(needle.formatted(.number.precision(.fractionLength(1))))",
+                        value: $needle,
+                        in: 0.0 ... 25,
+                        step: 0.5
+                    )
                 }
-                Section(header: Text("Nome da Receita:")){
-                    TextField("Digite Aqui...", text: $name)
+                HStack {
+                    Stepper(
+                        "Quantidade de Novelos: \(yarn)",
+                        value: $yarn,
+                        in: 0 ... 300,
+                        step: 1
+                    )
                 }
-                Section(header: Text("Informações adicionais:")){
-                    HStack {
-                        Stepper(
-                            "Tamanho da Agulha: \(needle.formatted(.number.precision(.fractionLength(1))))",
-                            value: $needle,
-                            in: 0.0 ... 25,
-                            step: 0.5
-                        )
-                    }
-                    HStack {
-                        Stepper(
-                            "Quantidade de Novelos: \(yarn)",
-                            value: $yarn,
-                            in: 0 ... 300,
-                            step: 1
-                        )
-                    }
-                }
-                Section(header: Text("Link Adicional:")) {
-                    TextField("Digite Aqui...", text: $link)
-                }
-                Section(header: Text("Receita:")) {
-                    TextField("Digite Aqui...", text: $text, axis: .vertical)
-                        .lineLimit(10, reservesSpace: true)
-                }
+            }
+            Section(header: Text("Link Adicional:")) {
+                TextField("Digite Aqui...", text: $link)
+            }
+            Section(header: Text("Receita:")) {
+                TextField("Digite Aqui...", text: $text, axis: .vertical)
+                    .lineLimit(10, reservesSpace: true)
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .scrollContentBackground(.hidden)
+        .backgroundCream()
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button ("", systemImage: "chevron.backward") {
-                    dismiss()
-                }
-                .font(Font.system(size: 40, weight:Font.Weight.bold))
-                .tint(.gray)
-            }
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    Text ("Criar Receita")
-                        .font(Font.system(size: 25, weight:Font.Weight.bold))
-                }
-            }
-            ToolbarItem(placement: .topBarTrailing) {
-                Button ("", systemImage: "checkmark") {
+            ToolbarItem(placement: .confirmationAction) {
+                Button {
                     createRecipe()
                     dismiss()
                 }
-                .disabled(submitPermission())
-                .font(Font.system(size: 40, weight:Font.Weight.bold))
-                .tint(.green)
+                label: {
+                    Image(systemName: "checkmark")
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(name.isEmpty || needle == 0.0 || text.isEmpty)
             }
         }
+        .navigationTitle("Criar Receita")
+        .navigationTitleColor(.ameixa)
+        .toolbarTitleDisplayMode(.inline)
+        
+        .padding(.top, -32)
     }
     
     private var photoPicker: some View {
         PhotosPicker(selection: $newImage) {
             Group {
                 if let imageData, let uiImage = UIImage(data: imageData) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
+                    HStack(alignment: .center) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 370,height: 148)
+                            .clipShape(RoundedRectangle(cornerRadius: 32))
+                    }
+                    .frame(maxWidth: .infinity)
                 } else {
-                    Image(systemName: "photo.badge.plus.fill")
-                        .tint(.gray)
-                        .font(.largeTitle)
-                        .frame(height: 120)
-                        .frame(maxWidth: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                        }
+                    VStack(spacing: 4) {
+                        Image(systemName: "photo.badge.plus.fill")
+                            .font(.largeTitle)
+                        Text("370x129")
+                            .font(.callout.bold())
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 370, height: 148)
+                    .background(Color.cremeBranco)
+                    .clipShape(RoundedRectangle(cornerRadius: 32))
                 }
             }
         }
+        .listRowBackground(Color.clear)
         .onChange(of: newImage) {
             guard let newImage else { return }
             Task {
@@ -148,14 +125,6 @@ struct CreateRecipeView: View {
             text: text
         )
         modelContext.insert(newRecipe)
-    }
-    
-    func submitPermission() -> Bool {
-        if (name == "" || needle == 0.0 || text == "") {
-            return true
-        } else {
-            return false
-        }
     }
 }
 

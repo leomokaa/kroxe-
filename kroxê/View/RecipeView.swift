@@ -11,38 +11,30 @@ struct RecipeView: View {
     var recipe: Recipe
     
     var body: some View {
-        
         VStack{
             VStack(alignment: .leading, spacing: 20){
                 VStack(alignment: .leading, spacing: 12){
-                    Image("RecipeImageDefault").resizable()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 129)
+                    Image("RecipeImageDefault")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 370)
+                        .frame(height: 148)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     
                     Text(recipe.name)
                         .font(.title.bold())
+                        .foregroundStyle(.ameixa)
                     
                     HStack (spacing: 8){
-                        HStack (spacing: 6){
-                            Image(systemName: "wand.and.outline")
-                            Text("Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
-                        }
-                        .font(.subheadline)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 10)
-                        .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 10))
+                        TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
                         
                         if (!(recipe.yarn == 0)) {
-                            HStack (spacing: 6){
-                                Image(systemName: "circle")
-                                if (!(recipe.yarn == 1)) { Text("\(recipe.yarn) Novelos")}
-                                else { Text("\(recipe.yarn) Novelo")}
+                            if (!(recipe.yarn == 1)) {
+                                TagRecipeView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelos")
                             }
-                            .font(.subheadline)
-                            .padding(.vertical, 4)
-                            .padding(.horizontal, 10)
-                            .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 10))
+                            else {
+                                TagRecipeView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelo")
+                            }
                         }
                     }
                 }
@@ -57,12 +49,14 @@ struct RecipeView: View {
                     }
                 }
                 Text(recipe.text)
+                    .foregroundStyle(.ameixa)
             }
             
             Spacer()
             
             
         }
+        .padding(.top, 10)
         .padding(.horizontal)
         .backgroundCream()
     }

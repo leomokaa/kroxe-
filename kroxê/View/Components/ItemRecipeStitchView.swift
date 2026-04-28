@@ -23,7 +23,7 @@ struct CardRecipeStitchView: View {
             .padding(.vertical, 4)
             .background(Color.lightRosaSuave, in: RoundedRectangle(cornerRadius: 10))
             
-            Text(stitch.name)
+            Text(stitch.abreviatedName)
                 .multilineTextAlignment(.center)
                 .font(.caption.bold())
                 .foregroundColor(.ameixa)

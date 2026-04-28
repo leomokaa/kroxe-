@@ -9,7 +9,13 @@ import SwiftUI
 
 struct GuideView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack (alignment: .leading) {
+            Text("Guia")
+                .font(.largeTitle.bold())
+                .foregroundStyle(Color.ameixa)
+            Spacer()
+        }
+        .backgroundCream()
     }
 }
 
