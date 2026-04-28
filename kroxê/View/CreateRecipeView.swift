@@ -21,8 +21,8 @@ struct CreateRecipeView: View {
     @State var needle: Float = 0  //tirar textfield?
     @State var text: String = ""
     @State var selectedItems: [PhotosPickerItem] = []
-    @State private var imageData: Image?
-    @State private var newImage: PhotosPickerItem?
+    @State private var imageData: Data? = nil
+    @State private var newImage: PhotosPickerItem? = nil
     
     var body: some View {
         Spacer().frame(height: 10)
@@ -59,12 +59,29 @@ struct CreateRecipeView: View {
                     TextField("Digite Aqui...", text: $name)
                 }
 
-                Section(header: Text("Tamanho da Agulha (mm):")){
-                    TextField("Digite Aqui...", value: $needle, format: .number)  //tirar textfield?
-                }
-                
-                Section(header: Text("Quantidade de Novelos:")) {
-                    TextField("Digite Aqui...", value: $yarn, format: .number)  //tirar textfield?
+                Section(header: Text("Informações adicionais:")){
+                    
+                    HStack {
+                        
+                        Stepper(
+                            "Tamanho da Agulha: \(needle.formatted(.number.precision(.fractionLength(1))))",
+                            value: $needle,
+                            in: 0.0 ... 25,
+                            step: 0.5
+                        )
+                        
+
+                    }
+                    HStack {
+                        
+                        Stepper(
+                            "Quantidade de Novelos: \(yarn)",
+                            value: $yarn,
+                            in: 0 ... 300,
+                            step: 1
+                        )
+                        
+                    }
                 }
                 
                 Section(header: Text("Link Adicional:")) {
@@ -108,8 +125,8 @@ struct CreateRecipeView: View {
     private var photoPicker: some View {
         PhotosPicker(selection: $newImage) {
             Group {
-                if let imageData {
-                    imageData
+                if let imageData, let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
                 } else {
@@ -129,7 +146,7 @@ struct CreateRecipeView: View {
         .onChange(of: newImage) {
             guard let newImage else { return }
             Task {
-                imageData = try await newImage.loadTransferable(type: Image.self)
+                imageData = try await newImage.loadTransferable(type: Data.self)
             }
         }
     }
@@ -146,7 +163,7 @@ struct CreateRecipeView: View {
     }
     
     func submitPermission() -> Bool {
-        if (name == "" || yarn == 0 || needle == 0.0 || text == "") {
+        if (name == "" || needle == 0.0 || text == "") {
             return true
         } else {
             return false

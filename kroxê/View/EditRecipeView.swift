@@ -20,7 +20,7 @@ struct EditRecipeView: View {
     @State var needleEdit: Float = 0
     @State var textEdit: String = ""
     @State var selectedItems: [PhotosPickerItem] = []
-    @State private var imageData: Image?
+    @State private var imageData: Data?
     @State private var newImage: PhotosPickerItem?
     
     var body: some View {
@@ -58,13 +58,31 @@ struct EditRecipeView: View {
                     TextField("Digite Aqui...", text: $nameEdit)
                 }
                 
-                Section(header: Text("Tamanho da Agulha (mm):")){
-                    TextField("Digite Aqui...", value: $needleEdit, format: .number)  //tirar textfield?
+                Section(header: Text("Informações adicionais:")){
+                    
+                    HStack {
+                        
+                        Stepper(
+                            "Tamanho da Agulha: \(needleEdit.formatted(.number.precision(.fractionLength(1))))",
+                            value: $needleEdit,
+                            in: 0.0 ... 25,
+                            step: 0.5
+                        )
+                        
+
+                    }
+                    HStack {
+                        
+                        Stepper(
+                            "Quantidade de Novelos: \(yarnEdit)",
+                            value: $yarnEdit,
+                            in: 0 ... 300,
+                            step: 1
+                        )
+                        
+                    }
                 }
                 
-                Section(header: Text("Quantidade de Novelos:")) {
-                    TextField("Digite Aqui...", value: $yarnEdit, format: .number)  //tirar textfield?
-                }
                 
                 Section(header: Text("Link Adicional:")) {
                     TextField("Digite Aqui...", text: $linkEdit)  //TODO: fazer textfields aparecerem o valor atual
@@ -76,6 +94,13 @@ struct EditRecipeView: View {
                 }
                 
             }
+            .onAppear {
+                nameEdit = recipe.name
+                yarnEdit = recipe.yarn
+                needleEdit = recipe.needle
+                linkEdit = recipe.link ?? ""
+                textEdit = recipe.text
+            }
             
         }
     }
@@ -83,10 +108,11 @@ struct EditRecipeView: View {
     private var photoPicker: some View {
         PhotosPicker(selection: $newImage) {
             Group {
-                if let imageData {
-                    imageData
+                if let imageData, let uiImage = UIImage(data: imageData) {
+                    Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
                 } else {
                     Image(systemName: "photo.badge.plus.fill")
                         .tint(.gray)
@@ -104,7 +130,7 @@ struct EditRecipeView: View {
         .onChange(of: newImage) {
             guard let newImage else { return }
             Task {
-                imageData = try await newImage.loadTransferable(type: Image.self)
+                imageData = try await newImage.loadTransferable(type: Data.self)
             }
         }
     }
@@ -114,11 +140,13 @@ struct EditRecipeView: View {
         recipe.link = linkEdit
         recipe.yarn = yarnEdit
         recipe.needle = needleEdit
-        //TODO: adicionar a parte de foto
+        if imageData != nil {
+            recipe.photo = imageData
+        }
     }
     
     func submitPermission() -> Bool {
-        if (nameEdit == "" || yarnEdit == 0 || needleEdit == 0.0 || textEdit == "") {
+        if (nameEdit == "" || needleEdit == 0.0 || textEdit == "") {
             return true
         } else {
             return false

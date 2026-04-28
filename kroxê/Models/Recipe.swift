@@ -12,7 +12,7 @@ import PhotosUI
 class Recipe {
     var id = UUID()
     var name: String
-    //      var image: UIImage?    //por favor, não mexer
+    var photo: Data?
     var link: String?
     var yarn: Int
     var needle: Float
@@ -20,14 +20,14 @@ class Recipe {
     
     init(
         name: String,
-        //        image: UIImage? = nill
+        photo: Data? = nil,
         link: String? = nil,
         yarn: Int,
         needle: Float,
         text: String
     ) {
         self.name = name
-        //        self.image = image
+        self.photo = photo
         self.link = link
         self.yarn = yarn
         self.needle = needle
