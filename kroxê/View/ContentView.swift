@@ -14,12 +14,18 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            Tab("Receitas", systemImage: "book") {
-                RecipesListView()
-            }
-            Tab("Guia", systemImage: "graduationcap") {
-                GuideView()
-            }
+            RecipesListView()
+                    .tabItem {
+                        Image(systemName: "book")
+                            .environment(\.symbolVariants, .none) // 👈 added
+                        Text("Receitas")
+                    }
+            GuideView()
+                .tabItem {
+                    Image(systemName: "graduationcap")
+                        .environment(\.symbolVariants, .none) 
+                    Text("Guia")
+                }
         }
     }
 }
