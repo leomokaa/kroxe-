@@ -46,15 +46,6 @@ struct RecipeView: View {
                             }
                             .frame(maxWidth: .infinity)
                         }
-                    } else {
-                        HStack(alignment: .center) {
-                            Image("RecipeImageDefault")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 370, height: 148)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                        }
-                        .frame(maxWidth: .infinity)
                     }
                     
                     Text(recipe.name)
