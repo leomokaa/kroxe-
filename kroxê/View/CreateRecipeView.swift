@@ -119,6 +119,7 @@ struct CreateRecipeView: View {
     func createRecipe() {
         let newRecipe = Recipe(
             name: name,
+            photo: imageData,
             link: link,
             yarn: yarn,
             needle: needle,

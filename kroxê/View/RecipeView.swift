@@ -14,12 +14,27 @@ struct RecipeView: View {
         VStack{
             VStack(alignment: .leading, spacing: 20){
                 VStack(alignment: .leading, spacing: 12){
-                    Image("RecipeImageDefault")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 370)
-                        .frame(height: 148)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                    if let data = recipe.photo {
+                        if let uiImage = UIImage(data: data) {
+                            HStack(alignment: .center){
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 370, height: 148)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    } else {
+                        HStack(alignment: .center) {
+                            Image("RecipeImageDefault")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 370, height: 148)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
                     
                     Text(recipe.name)
                         .font(.title.bold())
