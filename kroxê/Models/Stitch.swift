@@ -122,8 +122,3 @@ enum Stitch: Identifiable, Codable, CaseIterable {
     
 }
 
-import Playgrounds
-
-#Playground {
-    let stitch = Stitch(name: "sc")
-}
