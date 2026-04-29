@@ -5,9 +5,34 @@
 //  Created by User on 27/04/26.
 //
 
-enum Stitch: Identifiable, Codable {
+enum Stitch: Identifiable, Codable, CaseIterable {
     case chain, magicRing, slipStitch, singleCrochet, halfDoubleCrochet, doubleCrochet, trebleCrochet, doubleTrebleCrochet, increase, decrease
     var id: Self { self }
+    
+    var allNames: [String] {
+        switch self {
+        case .chain:
+            return [" ch", " corr", " chain", " correntinha"]
+        case .magicRing:
+            return [" magic Ring", " anel mágico", " mr",]
+        case .slipStitch:
+            return [" ponto baixíssimo", " slip stitch", " pbx", " sl st"]
+        case .singleCrochet:
+            return [" sc", " single crochet", " pb", " ponto baixo"]
+        case .halfDoubleCrochet:
+            return [" mpa", " meio ponto alto", " Half Double Crochet", " hdc"]
+        case .doubleCrochet:
+            return [" pa", " ponto alto", " double crochet", " dc"]
+        case .doubleTrebleCrochet:
+            return [" pad", " ponto alto duplo", " treple crochet", " tr"]
+        case .trebleCrochet:
+            return [" pat", " ponto alto triplo", " Double Treble Crochet", " dtr"]
+        case .increase:
+            return [" inc", " increase", " aumento", " aum"]
+        case .decrease:
+            return [" diminuição", " dim", " decrease", " dec"]
+        }
+    }
     
     var name: String {
         switch self {
@@ -83,4 +108,22 @@ enum Stitch: Identifiable, Codable {
         case .decrease: return "Dec"
         }
     }
+    
+    init?(name: String) {
+        let stitch = Stitch.allCases.first { stitch in
+            stitch.allNames.contains(name)
+        } // .singleCrochet
+        if let stitch {
+            self = stitch // self = .singleCrochet
+        } else {
+            return nil
+        }
+    }
+    
+}
+
+import Playgrounds
+
+#Playground {
+    let stitch = Stitch(name: "sc")
 }
