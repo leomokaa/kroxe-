@@ -14,23 +14,23 @@ enum Stitch: Identifiable, Codable, CaseIterable {
         case .chain:
             return [" ch", " corr", " chain", " correntinha"]
         case .magicRing:
-            return [" magic Ring", " anel mágico", " mr",]
+            return [" magic ring", " anel magico", " anel mágico", " mr",]
         case .slipStitch:
-            return [" ponto baixíssimo", " slip stitch", " pbx", " sl st"]
+            return [" ponto baixíssimo", " ponto baixissimo", " slip stitch", " pbx", " sl st"]
         case .singleCrochet:
             return [" sc", " single crochet", " pb", " ponto baixo"]
         case .halfDoubleCrochet:
-            return [" mpa", " meio ponto alto", " Half Double Crochet", " hdc"]
+            return [" mpa", " meio ponto alto", " half double crochet", " hdc"]
         case .doubleCrochet:
             return [" pa", " ponto alto", " double crochet", " dc"]
         case .doubleTrebleCrochet:
             return [" pad", " ponto alto duplo", " treple crochet", " tr"]
         case .trebleCrochet:
-            return [" pat", " ponto alto triplo", " Double Treble Crochet", " dtr"]
+            return [" pat", " ponto alto triplo", " double treble crochet", " dtr"]
         case .increase:
             return [" inc", " increase", " aumento", " aum"]
         case .decrease:
-            return [" diminuição", " dim", " decrease", " dec"]
+            return [" diminuição", " diminuiçao", " diminuicão", " diminuicão", " dim", " decrease", " dec"]
         }
     }
     
@@ -66,16 +66,16 @@ enum Stitch: Identifiable, Codable, CaseIterable {
     
     var translation: String {
         switch self {
-        case .chain: return "Chain"
-        case .magicRing: return "Magic Ring"
-        case .slipStitch: return "Slip Stitch"
-        case .singleCrochet: return "Single Crochet"
-        case .halfDoubleCrochet: return "Half Double Crochet"
-        case .doubleCrochet: return "Double Crochet"
-        case .trebleCrochet: return "Treble Crochet"
-        case .doubleTrebleCrochet: return "Double Treble Crochet"
-        case .increase: return "Increase"
-        case .decrease: return "Decrease"
+        case .chain: return "Chain (ch)"
+        case .magicRing: return "Magic Ring (mr)"
+        case .slipStitch: return "Slip Stitch (sl st)"
+        case .singleCrochet: return "Single Crochet (sc)"
+        case .halfDoubleCrochet: return "Half Double Crochet (hdc)"
+        case .doubleCrochet: return "Double Crochet (dc)"
+        case .trebleCrochet: return "Treble Crochet (tr)"
+        case .doubleTrebleCrochet: return "Double Treble Crochet (dtr)"
+        case .increase: return "Increase (inc)"
+        case .decrease: return "Decrease (dec)"
         }
     }
     
@@ -111,7 +111,7 @@ enum Stitch: Identifiable, Codable, CaseIterable {
     
     init?(name: String) {
         let stitch = Stitch.allCases.first { stitch in
-            stitch.allNames.contains(name)
+            stitch.allNames.contains(name.lowercased())
         } // .singleCrochet
         if let stitch {
             self = stitch // self = .singleCrochet

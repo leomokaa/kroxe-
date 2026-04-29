@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		CE6727242FA2A02D003630F0 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = CE6727232FA2A02D003630F0 /* OrderedCollections */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		CE37C2F62F91015F00AE115A /* kroxê.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "kroxê.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6727242FA2A02D003630F0 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "kroxê";
 			packageProductDependencies = (
+				CE6727232FA2A02D003630F0 /* OrderedCollections */,
 			);
 			productName = "kroxê";
 			productReference = CE37C2F62F91015F00AE115A /* kroxê.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = CE37C2ED2F91015F00AE115A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CE6727222FA2A02D003630F0 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CE37C2F72F91015F00AE115A /* Products */;
 			projectDirPath = "";
@@ -330,6 +339,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE6727222FA2A02D003630F0 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE6727232FA2A02D003630F0 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE6727222FA2A02D003630F0 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE37C2EE2F91015F00AE115A /* Project object */;
 }

@@ -65,5 +65,5 @@ struct CardRecipeView: View {
 }
 
 #Preview {
-    CardRecipeView(recipe: Recipe(name: "Coelhinho", yarn: 2, needle: 3.5, text: "blabla"))
+    CardRecipeView(recipe: Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "blabla"))
 }
