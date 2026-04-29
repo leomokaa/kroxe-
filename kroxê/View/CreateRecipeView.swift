@@ -20,7 +20,6 @@ struct CreateRecipeView: View {
     @State var yarn: Int = 0
     @State var needle: Float = 0
     @State var text: String = ""
-    @State var selectedItems: [PhotosPickerItem] = []
     @State private var imageData: Data? = nil
     @State private var newImage: PhotosPickerItem? = nil
     
@@ -29,6 +28,7 @@ struct CreateRecipeView: View {
             Section(){
                 photoPicker
             }
+            
             Section(header: Text("Nome da Receita*")){
                 TextField("Digite o nome", text: $name)
                     .foregroundStyle(.ameixa)
@@ -56,7 +56,7 @@ struct CreateRecipeView: View {
                         in: 0 ... 300,
                         step: 1
                     )
-                    .foregroundStyle(.rosaFrio)
+                    .foregroundStyle(.accent)
                 }
             }
             .listRowBackground(Color.cremeBranco)
@@ -64,20 +64,18 @@ struct CreateRecipeView: View {
             Section(header: Text("Link do Tutorial")) {
                 TextField("Digite o url do tutorial", text: $link)
                     .foregroundStyle(.ameixa)
-                    .font(.body)
             }
             .listRowBackground(Color.cremeBranco)
             
-            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, depois pule a linha e continue sua receita.")) {
-//                TextEditor(text: $text)
+            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
                 
                 ZStack(alignment: .leading) {
                     if text.isEmpty {
                         VStack {
-                            Text("Digite o url do tutorial")
-                                .padding(.top, 15)
-                                .padding(.leading, 1)
-                                .foregroundColor(Color.secondary.opacity(0.4))
+                            Text("Digite sua receita")
+                                .padding(.top, 10)
+                                .padding(.leading, -1)
+                                .foregroundColor(Color.secondary.opacity(0.45))
                                 .fontWeight(.regular)
                                 .font(.body)
                             Spacer(minLength: 20)
@@ -88,7 +86,7 @@ struct CreateRecipeView: View {
                         TextEditor(text: $text)
                             .frame(minHeight: 60)
                             .padding(.horizontal, -5)
-                            .padding(.vertical, 5)
+                            .foregroundStyle(.ameixa)
                         Spacer()
                     }.zIndex(0)
                 }

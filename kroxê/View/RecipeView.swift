@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OrderedCollections
 
 extension String {
     func highlighted(keywords: [String]) -> String {
@@ -21,10 +22,10 @@ struct RecipeView: View {
     var recipe: Recipe
     
     var body: some View {
-//       ScrollView {
-            VStack{
-                VStack(alignment: .leading, spacing: 20){
-                    VStack(alignment: .leading, spacing: 12){
+        ScrollView(showsIndicators: false){
+            VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 12) {
+                    VStack{
                         if let data = recipe.photo {
                             if let uiImage = UIImage(data: data) {
                                 HStack(alignment: .center){
@@ -52,9 +53,11 @@ struct RecipeView: View {
                         .font(.title.bold())
                         .foregroundStyle(.ameixa)
                     
-                    HStack (spacing: 8){
-                        if (!(recipe.needle == 0)) {
-                            TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                    if (!(recipe.needle == 0) || !(recipe.yarn == 0)) {
+                        HStack (spacing: 8){
+                            if (!(recipe.needle == 0)) {
+                                TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                            }
                             
                             if (!(recipe.yarn == 0)) {
                                 if (!(recipe.yarn == 1)) {
@@ -66,51 +69,83 @@ struct RecipeView: View {
                             }
                         }
                     }
-                    //para mostrar os pontos
-                    ScrollView(.horizontal, showsIndicators: false){
-                        HStack(alignment: .top){
-                            ForEach(stitchs(in: recipe.text)) { stitch in
-                                CardRecipeStitchView(stitch: stitch)
-                            }
-                        }
-                    }
-                    Text(
-                        hightlighTitles(highlightKeywords(recipe.text))
-                    )
-                    .foregroundStyle(.ameixa)
                 }
                 
-                Spacer()
+                //para mostrar os pontos
+                ScrollView(.horizontal, showsIndicators: false){
+                    HStack(alignment: .top){
+                        ForEach(stitchs(in: recipe.text)) { stitch in
+                            CardRecipeStitchView(stitch: stitch)
+                        }
+                    }
+                }
                 
+                Text(
+                    hightlighTitles(
+                        highlightKeywords(recipe.text)
+                    )
+                )
+                .foregroundStyle(.ameixa)
             }
             .padding(.top, 10)
+            .padding(.bottom, 20)
             .padding(.horizontal)
-            .backgroundCream()
-//        }ç
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu(content: {
+                    if let link = URL(string: recipe.link) {
+                        Link(destination: link, label: {
+                            Image(systemName: "link")
+                            Text("Acessar o tutorial")
+                        })
+                    }
+                    
+                    NavigationLink(destination: EditRecipeView(recipe: recipe)) {
+                        Image(systemName: "pencil.line")
+                        Text("Editar Receita")
+                    }
+                }, label: {Image(systemName: "ellipsis")})
+            }
+        }
+        .backgroundCream()
     }
     
     //olha os pontos que estão no texto
     func stitchs(in string: String) -> [Stitch] {
         let allNames = Stitch.allCases.flatMap(\.allNames)
         let filteredNames = allNames.filter { name in
-            string.contains(name)
+            string.lowercased().contains(name)
         }
         let stitchs = filteredNames.compactMap { name in
             Stitch(name: name)
         }
-        let uniqueStitchs = Set(stitchs)
+        let uniqueStitchs = OrderedSet(stitchs)
         return Array(uniqueStitchs)
     }
     
+    //deixa negrito os pontos
     func highlightKeywords(_ string: String) -> String {
         let keywords = Stitch.allCases.flatMap(\.allNames)
         var result = string
         for keyword in keywords {
-            result = result.replacingOccurrences(of: keyword, with: " **\(keyword.dropFirst())**")
+            result = result.replacingOccurrences(of: keyword, with: " **\(keyword.dropFirst())**", options: .caseInsensitive)
         }
+        //identar etapas
+        //        result = result
+        //            .components(separatedBy: .newlines)
+        //            .map { line in
+        //                if line.starts(with: "#") {
+        //                    return line
+        //                } else {
+        //                    return "   " + line
+        //                }
+        //            }
+        //            .joined(separator: "\n")
         return result
     }
     
+    //deixa negrito os titulos
     func hightlighTitles(_ string: String) -> AttributedString {
         var titles = string.components(separatedBy: .newlines).filter { line in
             line.starts(with: "#")
@@ -142,11 +177,12 @@ struct RecipeView: View {
     RecipeView(
         recipe: Recipe(
             name: "Coelhinho",
-            yarn: 2,
-            needle: 3.5,
+            link: "link.com",
+            yarn: 1,
+            needle: 0.1,
             text: """
             #titulo
-            Rnd 1. 7 sc in magic ring (7)
+            Rnd 1. 7 sc in Magic Ring (7)
             Rnd 2. 7 inc (14)
             Rnd 3. (1 single crochet, inc) x 7 (21)
             Rnd 4. (2 sc, inc) x 7 (28)
@@ -169,23 +205,23 @@ struct RecipeView: View {
 }
 
 //struct TitleHighlightView: View {
-//    
+//
 //    let string = """
 //            #TITLE 1
 //            aaaaaaa
 //            aaaaaaa
 //            aaaaaaa
-//            
+//
 //            #TITLE 2
 //            bbbbbbb
 //            bbbbbbb
 //            bbbbbbb
 //            """
-//    
+//
 //    var body: some View {
 //        Text(hightlighted())
 //    }
-//    
+//
 //}
 //
 //#Preview {

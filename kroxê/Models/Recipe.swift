@@ -13,7 +13,7 @@ class Recipe {
     var id = UUID()
     var name: String
     var photo: Data?
-    var link: String?
+    var link: String
     var yarn: Int
     var needle: Float
     var text: String
@@ -21,7 +21,7 @@ class Recipe {
     init(
         name: String,
         photo: Data? = nil,
-        link: String? = nil,
+        link: String,
         yarn: Int,
         needle: Float,
         text: String
