@@ -11,7 +11,6 @@ struct CardStitchView: View {
     var stitch: Stitch
     
     var body: some View {
-        //nao mexer
         VStack{
             HStack(spacing: 12){
                 Image(stitch.image)

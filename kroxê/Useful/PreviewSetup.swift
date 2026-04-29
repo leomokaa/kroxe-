@@ -13,9 +13,9 @@ enum PreviewSetup {
         let container = try! ModelContainer(for: Recipe.self, configurations: configuration)
         let recipes: [Recipe] = [
             Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "lalala"),
-            Recipe(name: "Estrelinha", link: "blablbla", yarn: 1, needle: 2.0, text: "fafafa"),
-            Recipe(name: "Tapete", link: "", yarn: 10, needle: 1.5, text: "bababa"),
-            Recipe(name: "Pano", link: "", yarn: 1, needle: 1.5, text: "bababa")
+            Recipe(name: "Estrelinha", link: "blablbla", yarn: 1, needle: 0.0, text: "fafafa"),
+            Recipe(name: "Tapete", link: "", yarn: 0, needle: 1.5, text: "bababa"),
+            Recipe(name: "Pano", link: "", yarn: 0, needle: 0.0, text: "bababa")
         ]
         for recipe in recipes {
             container.mainContext.insert(recipe)

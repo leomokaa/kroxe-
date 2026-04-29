@@ -38,7 +38,9 @@ struct CardRecipeView: View {
                         .font(.title2.bold())
                     
                     HStack (spacing: 8){
-                        TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                        if (!(recipe.needle == 0)) {
+                            TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                        }
                         
                         if (!(recipe.yarn == 0)) {
                             if (!(recipe.yarn == 1)) {

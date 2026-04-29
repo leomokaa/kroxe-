@@ -41,7 +41,9 @@ struct RecipeView: View {
                         .foregroundStyle(.ameixa)
                     
                     HStack (spacing: 8){
-                        TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                        if (!(recipe.needle == 0)) {
+                            TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                        }
                         
                         if (!(recipe.yarn == 0)) {
                             if (!(recipe.yarn == 1)) {

@@ -30,37 +30,79 @@ struct CreateRecipeView: View {
                 photoPicker
             }
             Section(header: Text("Nome da Receita*")){
-                TextField("Digite Aqui...", text: $name)
+                TextField("Digite o nome", text: $name)
+                    .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
-            Section(header: Text("Informações adicionais:")){
+            
+            Section(header: Text("Informações adicionais")){
                 HStack {
+                    Text("Agulha: \(needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                        .foregroundStyle(.ameixa)
                     Stepper(
-                        "Tamanho da Agulha: \(needle.formatted(.number.precision(.fractionLength(1))))",
+                        "",
                         value: $needle,
                         in: 0.0 ... 25,
                         step: 0.5
                     )
+                    .foregroundStyle(.accent)
                 }
                 HStack {
+                    Text("Nº de Novelos: \(yarn)")
+                        .foregroundStyle(.ameixa)
                     Stepper(
-                        "Quantidade de Novelos: \(yarn)",
+                        "",
                         value: $yarn,
                         in: 0 ... 300,
                         step: 1
                     )
+                    .foregroundStyle(.rosaFrio)
                 }
             }
-            Section(header: Text("Link Adicional:")) {
-                TextField("Digite Aqui...", text: $link)
+            .listRowBackground(Color.cremeBranco)
+            
+            Section(header: Text("Link do Tutorial")) {
+                TextField("Digite o url do tutorial", text: $link)
+                    .foregroundStyle(.ameixa)
+                    .font(.body)
             }
-            Section(header: Text("Receita:")) {
-                TextField("Digite Aqui...", text: $text, axis: .vertical)
-                    .lineLimit(10, reservesSpace: true)
+            .listRowBackground(Color.cremeBranco)
+            
+            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, depois pule a linha e continue sua receita.")) {
+//                TextEditor(text: $text)
+                
+                ZStack(alignment: .leading) {
+                    if text.isEmpty {
+                        VStack {
+                            Text("Digite o url do tutorial")
+                                .padding(.top, 15)
+                                .padding(.leading, 1)
+                                .foregroundColor(Color.secondary.opacity(0.4))
+                                .fontWeight(.regular)
+                                .font(.body)
+                            Spacer(minLength: 20)
+                        }.zIndex(1)
+                    }
+
+                    VStack {
+                        TextEditor(text: $text)
+                            .frame(minHeight: 60)
+                            .padding(.horizontal, -5)
+                            .padding(.vertical, 5)
+                        Spacer()
+                    }.zIndex(0)
+                }
+                
             }
+            .listRowBackground(Color.cremeBranco)
+            
         }
+        .listRowSpacing(10)
+        .listSectionSpacing(10)
+        
         .scrollContentBackground(.hidden)
         .backgroundCream()
+        
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
@@ -71,7 +113,7 @@ struct CreateRecipeView: View {
                     Image(systemName: "checkmark")
                 }
                 .buttonStyle(.borderedProminent)
-                .disabled(name.isEmpty || needle == 0.0 || text.isEmpty)
+                .disabled(name.isEmpty || text.isEmpty)
             }
         }
         .navigationTitle("Criar Receita")

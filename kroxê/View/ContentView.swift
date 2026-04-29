@@ -17,7 +17,7 @@ struct ContentView: View {
             RecipesListView()
                     .tabItem {
                         Image(systemName: "book")
-                            .environment(\.symbolVariants, .none) // 👈 added
+                            .environment(\.symbolVariants, .none)
                         Text("Receitas")
                     }
             GuideView()
