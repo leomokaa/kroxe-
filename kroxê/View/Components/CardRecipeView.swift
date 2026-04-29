@@ -13,10 +13,25 @@ struct CardRecipeView: View {
     var body: some View {
         NavigationLink (destination: RecipeView(recipe: recipe)) {
             VStack (alignment: .leading, spacing: 12) {
-                Image("RecipeImageDefault").resizable()
+                if let data = recipe.photo {
+                    if let uiImage = UIImage(data: data) {
+                        HStack(alignment: .center){
+                            Image(uiImage: uiImage).resizable()
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 129)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                } else {
+                    HStack(alignment: .center) {
+                        Image("RecipeImageDefault").resizable()
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 129)
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    }
                     .frame(maxWidth: .infinity)
-                    .frame(height: 129)
-                    .clipShape(RoundedRectangle(cornerRadius: 6))
+                }
                 
                 VStack (alignment: .leading, spacing: 8) {
                     Text(recipe.name)
