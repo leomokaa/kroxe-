@@ -26,6 +26,8 @@ struct RecipesListView: View {
     //        }
     //    }
     
+//    @State var toolbarVisibility: Visibility = .automatic
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -51,7 +53,19 @@ struct RecipesListView: View {
             .navigationTitleColor(.ameixa)
             .toolbarTitleDisplayMode(.inlineLarge)
             .backgroundCream()
+//            .toolbarVisibility(toolbarVisibility, for: .tabBar)
+//            .onAppear {
+//                withAnimation {
+//                    toolbarVisibility = .visible
+//                }
+//            }
+//            .onDisappear {
+//                withAnimation {
+//                    toolbarVisibility = .hidden
+//                }
+//            }
         }
+        
         
         
         //            .searchable(
