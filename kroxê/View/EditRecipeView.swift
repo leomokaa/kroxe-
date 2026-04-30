@@ -19,116 +19,169 @@ struct EditRecipeView: View {
     @State var yarnEdit: Int = 0
     @State var needleEdit: Float = 0
     @State var textEdit: String = ""
-    @State var selectedItems: [PhotosPickerItem] = []
-    @State private var imageData: Image?
+    @State private var imageData: Data?
     @State private var newImage: PhotosPickerItem?
     
     var body: some View {
-        Spacer().frame(height: 10)
-        HStack {
-            Button ("", systemImage: "chevron.backward.circle.fill") {
-                dismiss()
+        Form{
+            Section(){
+                photoPicker
             }
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.gray)
             
-            Spacer().frame(width: 60)
-            
-            Text ("Criar Receita")
-                .font(Font.system(size: 25, weight:Font.Weight.bold))
-            
-            Spacer().frame(width: 60)
-            
-            Button ("", systemImage: "checkmark.circle.fill") {
-                EditRecipe()
-                dismiss()
+            Section(header: Text("Nome da Receita*")){
+                TextField("Digite o nome", text: $nameEdit)
+                    .foregroundStyle(.ameixa)
             }
-            .disabled(submitPermission())
-            .font(Font.system(size: 40, weight:Font.Weight.bold))
-            .tint(.green)
+            .listRowBackground(Color.cremeBranco)
+            
+            Section(header: Text("Informações adicionais")){
+                HStack {
+                    Text("Agulha: \(needleEdit.formatted(.number.precision(.fractionLength(1)))) mm")
+                        .foregroundStyle(.ameixa)
+                    Stepper(
+                        "",
+                        value: $needleEdit,
+                        in: 0.0 ... 25,
+                        step: 0.5
+                    )
+                    .foregroundStyle(.accent)
+                }
+                HStack {
+                    Text("Nº de Novelos: \(yarnEdit)")
+                        .foregroundStyle(.ameixa)
+                    Stepper(
+                        "",
+                        value: $yarnEdit,
+                        in: 0 ... 300,
+                        step: 1
+                    )
+                    .foregroundStyle(.accent)
+                }
+            }
+            .listRowBackground(Color.cremeBranco)
+            
+            Section(header: Text("Link do Tutorial")) {
+                TextField("Digite o url do tutorial", text: $linkEdit)
+                    .foregroundStyle(.ameixa)
+            }
+            .listRowBackground(Color.cremeBranco)
+            
+            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
+                
+                ZStack(alignment: .leading) {
+                    if textEdit.isEmpty {
+                        VStack {
+                            Text("Digite sua receita")
+                                .padding(.top, 10)
+                                .padding(.leading, -1)
+                                .foregroundColor(Color.secondary.opacity(0.45))
+                                .fontWeight(.regular)
+                                .font(.body)
+                            Spacer(minLength: 20)
+                        }.zIndex(1)
+                    }
+                    
+                    VStack {
+                        TextEditor(text: $textEdit)
+                            .frame(minHeight: 60)
+                            .padding(.horizontal, -5)
+                            .foregroundStyle(.ameixa)
+                        Spacer()
+                    }.zIndex(0)
+                }
+                
+            }
+            .listRowBackground(Color.cremeBranco)
         }
-        NavigationStack {
-            Form{
-                
-                Section(header: Text("Imagem:")){
-                    photoPicker
-                }
-                
-                Section(header: Text("Nome da Receita:")){
-                    TextField("Digite Aqui...", text: $nameEdit)
-                }
-                
-                Section(header: Text("Tamanho da Agulha (mm):")){
-                    TextField("Digite Aqui...", value: $needleEdit, format: .number)  //tirar textfield?
-                }
-                
-                Section(header: Text("Quantidade de Novelos:")) {
-                    TextField("Digite Aqui...", value: $yarnEdit, format: .number)  //tirar textfield?
-                }
-                
-                Section(header: Text("Link Adicional:")) {
-                    TextField("Digite Aqui...", text: $linkEdit)  //TODO: fazer textfields aparecerem o valor atual
-                }
-                
-                Section(header: Text("Receita:")) {
-                    TextField("Digite Aqui...", text: $textEdit, axis: .vertical)
-                        .lineLimit(10, reservesSpace: true)
-                }
-                
-            }
-            
+        .onAppear {
+            nameEdit = recipe.name
+            imageData = recipe.photo
+            yarnEdit = recipe.yarn
+            needleEdit = recipe.needle
+            linkEdit = recipe.link 
+            textEdit = recipe.text
         }
+        .listRowSpacing(10)
+        .listSectionSpacing(10)
+        
+        .scrollContentBackground(.hidden)
+        .backgroundCream()
+        
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button {
+                    editRecipe()
+                    dismiss()
+                }
+                label: {
+                    Image(systemName: "checkmark")
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(submitPermission())
+            }
+        }
+        .navigationTitle(Text("Editar Receita"))
+        .navigationTitleColor(.ameixa)
+        .toolbarTitleDisplayMode(.inline)
+        
+        .padding(.top, -32)
     }
     
     private var photoPicker: some View {
         PhotosPicker(selection: $newImage) {
             Group {
-                if let imageData {
-                    imageData
-                        .resizable()
-                        .scaledToFit()
+                if let imageData, let uiImage = UIImage(data: imageData) {
+                    HStack(alignment: .center) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 370,height: 148)
+                            .clipShape(RoundedRectangle(cornerRadius: 32))
+                    }
+                    .frame(maxWidth: .infinity)
                 } else {
-                    Image(systemName: "photo.badge.plus.fill")
-                        .tint(.gray)
-                        .font(.largeTitle)
-                        .frame(height: 120)
-                        .frame(maxWidth: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .stroke(Color(UIColor.systemGray4), lineWidth: 2)
-                        }
+                    VStack(spacing: 4) {
+                        Image(systemName: "photo.badge.plus.fill")
+                            .font(.largeTitle)
+                        Text("370x129")
+                            .font(.callout.bold())
+                    }
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 370, height: 148)
+                    .background(Color.cremeBranco)
+                    .clipShape(RoundedRectangle(cornerRadius: 32))
                 }
             }
         }
+        .listRowBackground(Color.clear)
         .onChange(of: newImage) {
             guard let newImage else { return }
             Task {
-                imageData = try await newImage.loadTransferable(type: Image.self)
+                imageData = try await newImage.loadTransferable(type: Data.self)
             }
         }
     }
     
-    func EditRecipe() {
+    func editRecipe() {
         recipe.name = nameEdit
+        recipe.photo = imageData
         recipe.link = linkEdit
         recipe.yarn = yarnEdit
         recipe.needle = needleEdit
-        //TODO: adicionar a parte de foto
+        recipe.text = textEdit
     }
     
     func submitPermission() -> Bool {
-        if (nameEdit == "" || yarnEdit == 0 || needleEdit == 0.0 || textEdit == "") {
+        if (nameEdit.isEmpty || textEdit.isEmpty) {
             return true
         } else {
             return false
         }
     }
-    
 }
 
 #Preview {
     EditRecipeView(
-        recipe: Recipe(name: "Amanda", yarn: 100, needle: 10.0, text: "teste")
-        )
+        recipe: Recipe(name: "Amanda", link: "", yarn: 100, needle: 10.0, text: "teste", counter: 0)
+    )
 }

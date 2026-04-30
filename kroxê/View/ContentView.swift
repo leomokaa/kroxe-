@@ -9,24 +9,41 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Query private var recipes: [Recipe] = [
-        Recipe(name: "coelho", link: "lalala", yarn: 12, needle: 2.0, text: "lalala"),
-        Recipe(name: "blusa", link: "blablbla", yarn: 7, needle: 4.1, text: "fafafa"),
-        Recipe(name: "dinossauro", link: "gegege", yarn: 5, needle: 3.4, text: "lilili")
-    ]
+    
+    @State var searchQuery: String = ""
     
     var body: some View {
-        NavigationStack {
-            VStack {}
-            }
-            .navigationTitle("Minhas Receitas")
-        
+        TabView {
+            RecipesListView()
+                    .tabItem {
+                        Image(systemName: "book")
+                            .environment(\.symbolVariants, .none)
+                        Text("Receitas")
+                    }
+            GuideView()
+                .tabItem {
+                    Image(systemName: "graduationcap")
+                        .environment(\.symbolVariants, .none) 
+                    Text("Guia")
+                }
+        }
     }
 }
-
-
+//            SearchScreen()
+//                            .background(Color("BackgroundColor"))
+//                            .tabItem{
+//                                Image(systemName: "magnifyingglass")
+//                            }
+//        }.searchable(
+//            text: $searchQuery,
+//            placement: .toolbar,
+//            prompt: "Pesquise Receitas"
+//        )
+//        .searchToolbarBehavior(.minimize)
+//    }
 
 
 #Preview {
-        ContentView ()
+    return ContentView()
+        .modelContainer(PreviewSetup.previewRecepiesList)
 }
