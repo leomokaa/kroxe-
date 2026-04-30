@@ -12,7 +12,7 @@ enum PreviewSetup {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: Recipe.self, configurations: configuration)
         let recipes: [Recipe] = [
-            Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "lalala"),
+            Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "lalala", counter: 0),
             Recipe(name: "Estrelinha", link: "blablbla", yarn: 1, needle: 0.0, text: """
             #titulo
             Rnd 1. 7 sc in magic ring (7)
@@ -32,9 +32,10 @@ enum PreviewSetup {
             Rnd 17. 14 dec (7)
             sl st and f.o.
             Embroider a nose between rounds 10 and 11, mouth from 11  to 12
-            """),
-            Recipe(name: "Tapete", link: "", yarn: 0, needle: 1.5, text: "bababa"),
-            Recipe(name: "Pano", link: "", yarn: 0, needle: 0.0, text: "bababa")
+            """,
+                   counter: 0),
+            Recipe(name: "Tapete", link: "", yarn: 0, needle: 1.5, text: "bababa", counter: 0),
+            Recipe(name: "Pano", link: "", yarn: 0, needle: 0.0, text: "bababa", counter: 0)
         ]
         for recipe in recipes {
             container.mainContext.insert(recipe)

@@ -17,6 +17,7 @@ class Recipe {
     var yarn: Int
     var needle: Float
     var text: String
+    var counter: Int
     
     init(
         name: String,
@@ -24,7 +25,8 @@ class Recipe {
         link: String,
         yarn: Int,
         needle: Float,
-        text: String
+        text: String,
+        counter: Int
     ) {
         self.name = name
         self.photo = photo
@@ -32,5 +34,6 @@ class Recipe {
         self.yarn = yarn
         self.needle = needle
         self.text = text
+        self.counter = counter
     }
 }

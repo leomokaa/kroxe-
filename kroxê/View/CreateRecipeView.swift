@@ -22,6 +22,7 @@ struct CreateRecipeView: View {
     @State var text: String = ""
     @State private var imageData: Data? = nil
     @State private var newImage: PhotosPickerItem? = nil
+    @State private var counter: Int = 0
     
     var body: some View {
         Form{
@@ -163,7 +164,8 @@ struct CreateRecipeView: View {
             link: link,
             yarn: yarn,
             needle: needle,
-            text: text
+            text: text,
+            counter: counter,
         )
         modelContext.insert(newRecipe)
     }
