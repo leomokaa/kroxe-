@@ -23,8 +23,8 @@ struct kroxe_App: App {
             guard isFirstLaunch else { return }
             do {
                 let modelContext = try $0.get().mainContext
-                modelContext.insert(Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "lalala"))
-                modelContext.insert(Recipe(name: "Estrelinha", link: "https://apple.com", yarn: 1, needle: 2.0, text: "fafafa"))
+                modelContext.insert(Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "lalala", counter: 0))
+                modelContext.insert(Recipe(name: "Estrelinha", link: "https://apple.com", yarn: 1, needle: 2.0, text: "fafafa", counter: 0))
                 isFirstLaunch = false
             } catch {
                 

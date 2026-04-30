@@ -20,6 +20,7 @@ extension String {
 
 struct RecipeView: View {
     var recipe: Recipe
+    @State var bool: Bool = true
     
     var body: some View {
         ScrollView(showsIndicators: false){
@@ -86,11 +87,50 @@ struct RecipeView: View {
                     )
                 )
                 .foregroundStyle(.ameixa)
+//                .overlay (
+//                    Image (systemName: "hand. thumbsup-fill")
+//                        .font(.system(size: 200))
+//                        .opacity(0.7)
+//                        .frame(width: 450, height: 300, alignment: .bottom)
+//                        .glassEffect()
+//                )
             }
             .padding(.top, 10)
             .padding(.bottom, 20)
             .padding(.horizontal)
         }
+        .overlay (alignment: .bottom) {
+            HStack {
+                Text ("Contador")
+                    .font(.system(size: 20))
+                    .opacity(0.7)
+                    .frame(width: 350, height: 150, alignment: .topLeading)
+                    .padding(10)
+                    .glassEffect()
+                
+                Button ("", systemImage: "arrow.counterclockwise") {
+                    recipe.counter = 0
+                }
+            }
+            HStack {
+                Button("", systemImage: "minus.circle.fill") {
+                    if recipe.counter > 0 {
+                        recipe.counter -= 1
+                    }
+                }.disabled(recipe.counter == 0)
+                
+                Text("\(recipe.counter)")
+                
+                Button("", systemImage: "plus.circle.fill") {
+                    recipe.counter += 1
+                }
+            }
+        }.cornerRadius(20)
+//        .sheet(isPresented: $bool, content: {
+//            
+//                })
+//                    .padding()
+//                    .frame(width: 40, height: 30)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
@@ -199,7 +239,8 @@ struct RecipeView: View {
             Rnd 17. 14 dec (7)
             sl st and f.o.
             Embroider a nose between rounds 10 and 11, mouth from 11  to 12
-            """
+            """,
+            counter: 0
         )
     )
 }

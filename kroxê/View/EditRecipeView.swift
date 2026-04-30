@@ -182,6 +182,6 @@ struct EditRecipeView: View {
 
 #Preview {
     EditRecipeView(
-        recipe: Recipe(name: "Amanda", link: "", yarn: 100, needle: 10.0, text: "teste")
+        recipe: Recipe(name: "Amanda", link: "", yarn: 100, needle: 10.0, text: "teste", counter: 0)
     )
 }
