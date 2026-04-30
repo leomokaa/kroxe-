@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OrderedCollections
+import SwiftData
 
 extension String {
     func highlighted(keywords: [String]) -> String {
@@ -19,8 +20,14 @@ extension String {
 }
 
 struct RecipeView: View {
+    
+    @Environment(\.modelContext)
+    var modelContext //modelContext.delete(model)
+    @Environment(\.dismiss) private var dismiss
+    
     var recipe: Recipe
     @State var bool: Bool = true
+    @State private var isDeleting: Bool = false
     
     var body: some View {
         ScrollView(showsIndicators: false){
@@ -87,13 +94,13 @@ struct RecipeView: View {
                     )
                 )
                 .foregroundStyle(.ameixa)
-//                .overlay (
-//                    Image (systemName: "hand. thumbsup-fill")
-//                        .font(.system(size: 200))
-//                        .opacity(0.7)
-//                        .frame(width: 450, height: 300, alignment: .bottom)
-//                        .glassEffect()
-//                )
+                //                .overlay (
+                //                    Image (systemName: "hand. thumbsup-fill")
+                //                        .font(.system(size: 200))
+                //                        .opacity(0.7)
+                //                        .frame(width: 450, height: 300, alignment: .bottom)
+                //                        .glassEffect()
+                //                )
             }
             .padding(.top, 10)
             .padding(.bottom, 20)
@@ -126,29 +133,53 @@ struct RecipeView: View {
                 }
             }
         }.cornerRadius(20)
-//        .sheet(isPresented: $bool, content: {
-//            
-//                })
-//                    .padding()
-//                    .frame(width: 40, height: 30)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(content: {
-                    if let link = URL(string: recipe.link) {
-                        Link(destination: link, label: {
-                            Image(systemName: "link")
-                            Text("Acessar o tutorial")
-                        })
-                    }
-                    
-                    NavigationLink(destination: EditRecipeView(recipe: recipe)) {
-                        Image(systemName: "pencil.line")
-                        Text("Editar Receita")
-                    }
-                }, label: {Image(systemName: "ellipsis")})
+        //        .sheet(isPresented: $bool, content: {
+        //
+        //                })
+        //                    .padding()
+        //                    .frame(width: 40, height: 30)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu(content: {
+                        if let link = URL(string: recipe.link) {
+                            Link(destination: link, label: {
+                                Image(systemName: "link")
+                                Text("Acessar o tutorial")
+                            })
+                        }
+                        
+                        NavigationLink(destination: EditRecipeView(recipe: recipe)) {
+                            Image(systemName: "pencil.line")
+                            Text("Editar Receita")
+                        }
+                        
+                        Button("Excluir Receita", systemImage: "trash", role: .destructive) {
+                            isDeleting = true
+                            
+                        }
+//                        .alert("Alert title", isPresented: $isPresented, actions: {
+//                            Button(role: .destructive) {
+//                                
+//                            } label: {
+//                                Text("Delete")
+//                            }
+//                            
+//                            Button("Cancel", role: .cancel) {
+//                            }
+//                            
+//                            Button("OK") {
+//                                modelContext.delete(recipe)
+//                                dismiss()
+//                            }
+//                            
+//                        }, message: {
+//                            Text("Alert message")
+//                        })
+                        
+                    }, label: {Image(systemName: "ellipsis")})
+                }
             }
-        }
-        .backgroundCream()
+            .backgroundCream()
     }
     
     //olha os pontos que estão no texto
