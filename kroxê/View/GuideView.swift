@@ -11,10 +11,9 @@ struct GuideView: View {
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false){
-                VStack(alignment: .leading, spacing: 20) {
-                    Text("Conheça os pontos de crochê")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+//                    Text("Conheça os pontos de crochê")
+//                        .font(.subheadline)
+//                        .foregroundColor(.secondary)
                     VStack (spacing: 10) {
                         CardStitchView(stitch: Stitch.chain)
                         CardStitchView(stitch: Stitch.magicRing)
@@ -27,13 +26,12 @@ struct GuideView: View {
                         CardStitchView(stitch: Stitch.increase)
                         CardStitchView(stitch: Stitch.decrease)
                     }
-                }
-                .padding(.bottom, 16)
+                .padding(.vertical, 20)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             .padding(.top, -6)
-            .navigationTitle("Guia")
+            .navigationTitle("Guia de Pontos")
             .navigationTitleColor(.ameixa)
             .toolbarTitleDisplayMode(.inlineLarge)
             .backgroundCream()
