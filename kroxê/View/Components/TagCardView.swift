@@ -13,11 +13,11 @@ struct TagCardView: View {
     
     var body: some View {
         HStack (spacing: 4){
-            Image(systemName: tagIcon)
+//            Image(systemName: tagIcon)
             Text(tagName)
         }
         .foregroundStyle(.ameixa)
-        .font(.footnote)
+        .font(.footnote.weight(.medium))
         .padding(.vertical, 4)
         .padding(.horizontal, 8)
         .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 8))

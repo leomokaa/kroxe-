@@ -28,19 +28,14 @@ struct RecipesListView: View {
     
     var body: some View {
         NavigationStack {
-                ScrollView(showsIndicators: false){
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("Suas receitas de crochê em um só lugar")
-                            .font(.subheadline)
-                            .foregroundColor(.secondary)
-                        VStack (spacing: 14) {
-                            ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
-                                CardRecipeView(recipe: recipe)
-                            }
-                        }
-                    }
-                    .padding(.bottom, 16)
-                }
+            ZStack {
+                recepiesList
+                    .opacity(recipes.isEmpty ? 0 : 1)
+                
+                emptyStateList
+                    .opacity(recipes.isEmpty ? 1 : 0)
+                
+            }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
             .padding(.top, -6)
@@ -66,6 +61,26 @@ struct RecipesListView: View {
         //            )
         //            .searchToolbarBehavior(.minimize)
         
+    }
+    
+    var recepiesList: some View {
+        ScrollView(showsIndicators: false){
+//                Text("Suas receitas de crochê em um só lugar")
+//                    .font(.subheadline)
+//                    .foregroundColor(.secondary)
+                    VStack (spacing: 14) {
+                        ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
+                            CardRecipeView(recipe: recipe)
+                        }
+                    }
+            
+            .padding(.vertical, 20)
+       }
+//        .scrollBounceBehavior()
+    }
+    
+    var emptyStateList: some View {
+        NoRecipeView()
     }
 }
 

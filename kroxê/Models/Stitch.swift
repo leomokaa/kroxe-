@@ -30,7 +30,7 @@ enum Stitch: Identifiable, Codable, CaseIterable {
         case .increase:
             return [" inc", " increase", " aumento", " aum"]
         case .decrease:
-            return [" diminuição", " diminuiçao", " diminuicão", " diminuicão", " dim", " decrease", " dec"]
+            return [" diminuição", " diminuiçao", " diminuicao", " diminuicão", " dim", " decrease", " dec"]
         }
     }
     

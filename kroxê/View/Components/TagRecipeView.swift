@@ -13,11 +13,11 @@ struct TagRecipeView: View {
     
     var body: some View {
         HStack (spacing: 4){
-            Image(systemName: tagIcon)
+//            Image(systemName: tagIcon)
             Text(tagName)
         }
         .foregroundStyle(.ameixa)
-        .font(.subheadline)
+        .font(.subheadline.weight(.medium))
         .padding(.vertical, 4)
         .padding(.horizontal, 10)
         .background(Color.lightLavanda, in: RoundedRectangle(cornerRadius: 10))
