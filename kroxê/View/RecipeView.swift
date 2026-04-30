@@ -135,29 +135,24 @@ struct RecipeView: View {
                             isDeleting = true
                             
                         }
-//                        .alert("Alert title", isPresented: $isPresented, actions: {
-//                            Button(role: .destructive) {
-//                                
-//                            } label: {
-//                                Text("Delete")
-//                            }
-//                            
-//                            Button("Cancel", role: .cancel) {
-//                            }
-//                            
-//                            Button("OK") {
-//                                modelContext.delete(recipe)
-//                                dismiss()
-//                            }
-//                            
-//                        }, message: {
-//                            Text("Alert message")
-//                        })
                         
                     }, label: {Image(systemName: "ellipsis")})
                 }
             }
             .backgroundCream()
+            .alert("Excluir receita", isPresented: $isDeleting, actions: {
+                HStack {
+                    Button("Cancelar", role: .cancel) {
+                    }
+                    
+                    Button("Excluir", role: .destructive) {
+                        modelContext.delete(recipe)
+                        dismiss()
+                    }
+                }
+            }, message: {
+                Text("Tem certeza que deseja apagar essa receita?")
+            })
     }
     
     
