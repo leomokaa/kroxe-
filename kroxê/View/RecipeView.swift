@@ -103,36 +103,14 @@ struct RecipeView: View {
                 //                )
             }
             .padding(.top, 10)
-            .padding(.bottom, 20)
+            .padding(.bottom, 170)
             .padding(.horizontal)
         }
+        
+        //contador
         .overlay (alignment: .bottom) {
-            HStack {
-                Text ("Contador")
-                    .font(.system(size: 20))
-                    .opacity(0.7)
-                    .frame(width: 350, height: 150, alignment: .topLeading)
-                    .padding(10)
-                    .glassEffect()
-                
-                Button ("", systemImage: "arrow.counterclockwise") {
-                    recipe.counter = 0
-                }
-            }
-            HStack {
-                Button("", systemImage: "minus.circle.fill") {
-                    if recipe.counter > 0 {
-                        recipe.counter -= 1
-                    }
-                }.disabled(recipe.counter == 0)
-                
-                Text("\(recipe.counter)")
-                
-                Button("", systemImage: "plus.circle.fill") {
-                    recipe.counter += 1
-                }
-            }
-        }.cornerRadius(20)
+            RecipeCounterView(recipe: recipe)
+        }
         //        .sheet(isPresented: $bool, content: {
         //
         //                })
@@ -181,6 +159,7 @@ struct RecipeView: View {
             }
             .backgroundCream()
     }
+    
     
     //olha os pontos que estão no texto
     func stitchs(in string: String) -> [Stitch] {
