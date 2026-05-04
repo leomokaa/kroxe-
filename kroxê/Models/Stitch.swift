@@ -12,25 +12,25 @@ enum Stitch: Identifiable, Codable, CaseIterable {
     var allNames: [String] {
         switch self {
         case .chain:
-            return [" ch", " corr", " chain", " correntinha"]
+            return ["ch", "corr", "chain", "correntinha"]
         case .magicRing:
-            return [" magic ring", " anel magico", " anel mágico", " mr",]
+            return ["magic ring", "anel magico", "anel mágico", "mr",]
         case .slipStitch:
-            return [" ponto baixíssimo", " ponto baixissimo", " slip stitch", " pbx", " sl st"]
+            return ["ponto baixíssimo", "ponto baixissimo", "slip stitch", "pbx", "sl st"]
         case .singleCrochet:
-            return [" sc", " single crochet", " pb", " ponto baixo"]
+            return ["sc", "single crochet", "pb", "ponto baixo"]
         case .halfDoubleCrochet:
-            return [" mpa", " meio ponto alto", " half double crochet", " hdc"]
+            return ["mpa", "meio ponto alto", "half double crochet", "hdc"]
         case .doubleCrochet:
-            return [" pa", " ponto alto", " double crochet", " dc"]
+            return ["pa", "ponto alto", "double crochet", "dc"]
         case .doubleTrebleCrochet:
-            return [" pad", " ponto alto duplo", " treple crochet", " tr"]
+            return ["pad", "ponto alto duplo", "treple crochet", "tr"]
         case .trebleCrochet:
-            return [" pat", " ponto alto triplo", " double treble crochet", " dtr"]
+            return ["pat", "ponto alto triplo", "double treble crochet", "dtr"]
         case .increase:
-            return [" inc", " increase", " aumento", " aum"]
+            return ["inc", "increase", "aumento", "aum"]
         case .decrease:
-            return [" diminuição", " diminuiçao", " diminuicao", " diminuicão", " dim", " decrease", " dec"]
+            return ["diminuição", "diminuiçao", "diminuicao", "diminuicão", "dim", "decrease", "dec"]
         }
     }
     

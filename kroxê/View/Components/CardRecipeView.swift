@@ -16,18 +16,20 @@ struct CardRecipeView: View {
                 if let data = recipe.photo {
                     if let uiImage = UIImage(data: data) {
                         HStack(alignment: .center){
-                            Image(uiImage: uiImage).resizable()
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 129)
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(maxWidth: .infinity, maxHeight: 129)
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
                         }
                         .frame(maxWidth: .infinity)
                     }
                 } else {
                     HStack(alignment: .center) {
-                        Image("RecipeImageDefault").resizable()
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 129)
+                        Image("RecipeImageDefault")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(maxWidth: .infinity, maxHeight: 129)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
                     }
                     .frame(maxWidth: .infinity)
@@ -39,7 +41,7 @@ struct CardRecipeView: View {
                     
                     HStack (spacing: 8){
                         if (!(recipe.needle == 0)) {
-                            TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                            TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha de \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
                         }
                         
                         if (!(recipe.yarn == 0)) {
@@ -58,6 +60,7 @@ struct CardRecipeView: View {
             .padding(.horizontal, 10)
             .padding(.top, 10)
             .padding(.bottom, 15)
+            .frame(maxWidth: .infinity)
             .background(Color.cremeBranco, in: RoundedRectangle(cornerRadius: 15))
         }
     }
