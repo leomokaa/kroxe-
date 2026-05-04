@@ -36,6 +36,7 @@ struct StitchSheetView: View {
                         .foregroundStyle(Color(.ameixa))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
+                        .frame(maxWidth: 300)
                 }
             }
             .navigationTitle(stitch.name)

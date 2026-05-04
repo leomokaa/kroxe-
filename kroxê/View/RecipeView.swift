@@ -9,15 +9,16 @@ import SwiftUI
 import OrderedCollections
 import SwiftData
 
-extension String {
-    func highlighted(keywords: [String]) -> String {
-        var result: String = self
-        for keyword in keywords {
-            result = result.replacingOccurrences(of: keyword, with: " **\(keyword.dropFirst())**")
-        }
-        return result
-    }
-}
+//extension String {
+//    func highlighted(keywords: [String]) -> String {
+//        var result: String = self
+//        for keyword in keywords {
+//            let keywordWithoutSpaces = keyword.replacingOccurrences(of: " ", with: "")
+//            result = result.replacingOccurrences(of: keyword, with: "**\(keywordWithoutSpaces)**")
+//        }
+//        return result
+//    }
+//}
 
 struct RecipeView: View {
     
@@ -40,7 +41,7 @@ struct RecipeView: View {
                                     Image(uiImage: uiImage)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: 370, height: 148)
+                                        .frame(maxWidth: .infinity, maxHeight: 148)
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                                 .frame(maxWidth: .infinity)
@@ -50,7 +51,7 @@ struct RecipeView: View {
                                 Image("RecipeImageDefault")
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 370, height: 148)
+                                    .frame(maxWidth: .infinity, maxHeight: 148)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                             }
                             .frame(maxWidth: .infinity)
@@ -64,7 +65,7 @@ struct RecipeView: View {
                     if (!(recipe.needle == 0) || !(recipe.yarn == 0)) {
                         HStack (spacing: 8){
                             if (!(recipe.needle == 0)) {
-                                TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                                TagRecipeView(tagIcon: "wand.and.outline", tagName: "Agulha de \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
                             }
                             
                             if (!(recipe.yarn == 0)) {
@@ -93,6 +94,7 @@ struct RecipeView: View {
                         highlightKeywords(recipe.text)
                     )
                 )
+                .lineSpacing(6)
                 .foregroundStyle(.ameixa)
                 //                .overlay (
                 //                    Image (systemName: "hand. thumbsup-fill")
@@ -159,8 +161,8 @@ struct RecipeView: View {
     //olha os pontos que estão no texto
     func stitchs(in string: String) -> [Stitch] {
         let allNames = Stitch.allCases.flatMap(\.allNames)
-        let filteredNames = allNames.filter { name in
-            string.lowercased().contains(name)
+        let filteredNames = allNames.filter { keyword in
+            string.range(of: "(\\b\(keyword)\\b|(?<=\\d)\(keyword)\\b)", options: [.regularExpression, .caseInsensitive]) != nil
         }
         let stitchs = filteredNames.compactMap { name in
             Stitch(name: name)
@@ -174,19 +176,8 @@ struct RecipeView: View {
         let keywords = Stitch.allCases.flatMap(\.allNames)
         var result = string
         for keyword in keywords {
-            result = result.replacingOccurrences(of: keyword, with: " **\(keyword.dropFirst())**", options: .caseInsensitive)
+            result = result.replacingOccurrences(of: "(\\b\(keyword)\\b|(?<=\\d)\(keyword)\\b)", with: "**\(keyword)**", options: [.regularExpression, .caseInsensitive])
         }
-        //identar etapas
-        //        result = result
-        //            .components(separatedBy: .newlines)
-        //            .map { line in
-        //                if line.starts(with: "#") {
-        //                    return line
-        //                } else {
-        //                    return "   " + line
-        //                }
-        //            }
-        //            .joined(separator: "\n")
         return result
     }
     
@@ -221,30 +212,26 @@ struct RecipeView: View {
 #Preview {
     RecipeView(
         recipe: Recipe(
-            name: "Coelhinho",
-            link: "link.com",
-            yarn: 1,
-            needle: 0.1,
+            name: "Minha Primeira Receita",
+            link: "",
+            yarn: 0,
+            needle: 0.0,
             text: """
-            #titulo
-            Rnd 1. 7 sc in Magic Ring (7)
-            Rnd 2. 7 inc (14)
-            Rnd 3. (1 single crochet, inc) x 7 (21)
-            Rnd 4. (2 sc, inc) x 7 (28)
-            Rnd 5. (3 sc, inc) x 7 (35)
-            Rnd 6 - 13. sc in each (35)
-            Add safety eyes between rounds 10 and 11, 7 st apart
-            Stuff
-            
-            #titulo 2
-            Rnd 14. (3 sc, dec) x 7 (28)
-            Rnd 15. (2 sc, dec) x 7 (21)
-            Rnd 16. (1 sc, dec) x 7 (14)
-            Stuff some more
-            Rnd 17. 14 dec (7)
-            sl st and f.o.
-            Embroider a nose between rounds 10 and 11, mouth from 11  to 12
-            """,
+        #Receita
+        Faça um nó inicial
+        Carreira 1: 6 corr [10]
+        Carreira 2: 6 pb [10]
+        Carreira 3: 3 [sc, inc] [9]
+
+        #Dicas
+        Use # no início da linha para escrever um título e dividir sua receita em partes.
+
+        Você pode escrever os pontos como preferir, por extenso ou em abreviações, em português ou inglês:
+        “pb”, “ponto baixo”, “sc” ou “single crochet”.
+        Os pontos detectados são automaticamente listados no topo da receita.
+
+        Use o contador de carreiras para acompanhar seu projeto enquanto faz.
+        """,
             counter: 0
         )
     )
