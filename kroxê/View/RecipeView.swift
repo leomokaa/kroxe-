@@ -30,6 +30,8 @@ struct RecipeView: View {
     @State var bool: Bool = true
     @State private var isDeleting: Bool = false
     
+    @Namespace private var namespace
+    
     var body: some View {
         ScrollView(showsIndicators: false){
             VStack(alignment: .leading, spacing: 20) {
@@ -38,11 +40,18 @@ struct RecipeView: View {
                         if let data = recipe.photo {
                             if let uiImage = UIImage(data: data) {
                                 HStack(alignment: .center){
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(maxWidth: .infinity, maxHeight: 148)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    NavigationLink {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
+                                    } label: {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(maxWidth: .infinity, maxHeight: 148)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    }
                                 }
                                 .frame(maxWidth: .infinity)
                             }
