@@ -20,7 +20,7 @@ struct kroxe_App: App {
         WindowGroup {
             ContentView()
                 .sheet(isPresented: $isFirstLaunch) {
-                    Text("Onboard")
+                    WelcomeSheetView()
                 }
         }
         .modelContainer(for: [Recipe.self]) { //cria receitas quando abre o app assim que instala
