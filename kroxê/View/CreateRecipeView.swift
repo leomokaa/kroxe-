@@ -35,6 +35,7 @@ struct CreateRecipeView: View {
                     .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
+            .preferredColorScheme(.light)
             
             Section(header: Text("Informações adicionais")){
                 HStack {
@@ -47,6 +48,7 @@ struct CreateRecipeView: View {
                         step: 0.5
                     )
                     .foregroundStyle(.accent)
+                    .preferredColorScheme(.light)
                 }
                 HStack {
                     Text("Nº de Novelos: \(yarn)")
@@ -58,6 +60,7 @@ struct CreateRecipeView: View {
                         step: 1
                     )
                     .foregroundStyle(.accent)
+                    .preferredColorScheme(.light)
                 }
             }
             .listRowBackground(Color.cremeBranco)
@@ -67,6 +70,7 @@ struct CreateRecipeView: View {
                     .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
+            .preferredColorScheme(.light)
             
             Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
                 
@@ -81,6 +85,7 @@ struct CreateRecipeView: View {
                                 .font(.body)
                             Spacer(minLength: 20)
                         }.zIndex(1)
+                         .preferredColorScheme(.light)
                     }
 
                     VStack {
@@ -90,6 +95,7 @@ struct CreateRecipeView: View {
                             .foregroundStyle(.ameixa)
                         Spacer()
                     }.zIndex(0)
+                    .preferredColorScheme(.light)
                 }
                 
             }
