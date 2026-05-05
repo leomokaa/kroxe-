@@ -1,24 +1,28 @@
 //
-//  AboutRecipeView.swift
+//  AboutStitchView.swift
 //  kroxê
 //
-//  Created by User on 04/05/26.
+//  Created by User on 05/05/26.
 //
 
 import SwiftUI
 
-struct AboutRecipeView: View {
+struct AboutStitchView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @AppStorage("isFirstLaunch") var isFirstLaunch = true
+    
     var body: some View {
         VStack{
             VStack {
                 VStack (spacing: 52) {
-                    Image("RecipeImage")
+                    Image("StitchCardsImage")
                         .frame(maxWidth: .infinity)
                     VStack (spacing: 16){
-                        Text("Sua receita, do seu jeito")
+                        Text("Sem complicação")
                             .font(.title.bold())
                             .multilineTextAlignment(.center)
-                        Text("Escreva livremente, separe por etapas e acompanhe cada carreira sem se perder enquanto faz.")
+                        Text("Seus pontos ficam no topo da receita. Quando precisar, é só consultar o guia para relembrar quais são.")
                             .multilineTextAlignment(.center)
                     }
                     .frame(width: 312)
@@ -26,8 +30,10 @@ struct AboutRecipeView: View {
                 }
                 Spacer()
                 
-                NavigationLink (destination: AboutStitchView()) {
-                    Text("Próximo")
+                Button {
+                    isFirstLaunch = false
+                } label: {
+                    Text("Começar")
                         .padding(.vertical, 14)
                         .fontWeight(.medium)
                         .foregroundStyle(.creme)
@@ -44,5 +50,5 @@ struct AboutRecipeView: View {
 }
 
 #Preview {
-    AboutRecipeView()
+    AboutStitchView()
 }
