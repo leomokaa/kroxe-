@@ -5,32 +5,35 @@
 //  Created by User on 23/04/26.
 //
 
-
-import Foundation
 import SwiftData
 import PhotosUI
 
-@Model class Recipe {
+@Model
+class Recipe {
+    var id = UUID()
     var name: String
-    //      var image: UIImage?    //por favor, não mexer
-    var link: String?
+    var photo: Data?
+    var link: String
     var yarn: Int
     var needle: Float
     var text: String
+    var counter: Int
     
     init(
         name: String,
-        //        image: UIImage? = nill
-        link: String? = nil,
+        photo: Data? = nil,
+        link: String,
         yarn: Int,
         needle: Float,
-        text: String
+        text: String,
+        counter: Int
     ) {
         self.name = name
-        //        self.image = image
+        self.photo = photo
         self.link = link
         self.yarn = yarn
         self.needle = needle
         self.text = text
+        self.counter = counter
     }
 }
