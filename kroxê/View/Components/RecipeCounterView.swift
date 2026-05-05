@@ -67,6 +67,7 @@ struct RecipeCounterView: View {
 //        glassView.cornerConfiguration = uniformTopRadius(0)
         .padding(.horizontal, 33)
         .padding(.bottom, 10)
+        .preferredColorScheme(.light)
     }
 }
 

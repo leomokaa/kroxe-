@@ -33,6 +33,7 @@ struct EditRecipeView: View {
                     .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
+            .preferredColorScheme(.light)
             
             Section(header: Text("Informações adicionais")){
                 HStack {
@@ -45,6 +46,7 @@ struct EditRecipeView: View {
                         step: 0.5
                     )
                     .foregroundStyle(.accent)
+                    .preferredColorScheme(.light)
                 }
                 HStack {
                     Text("Nº de Novelos: \(yarnEdit)")
@@ -56,6 +58,7 @@ struct EditRecipeView: View {
                         step: 1
                     )
                     .foregroundStyle(.accent)
+                    .preferredColorScheme(.light)
                 }
             }
             .listRowBackground(Color.cremeBranco)
@@ -65,6 +68,7 @@ struct EditRecipeView: View {
                     .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
+            .preferredColorScheme(.light)
             
             Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
                 
@@ -79,6 +83,7 @@ struct EditRecipeView: View {
                                 .font(.body)
                             Spacer(minLength: 20)
                         }.zIndex(1)
+                            .preferredColorScheme(.light)
                     }
                     
                     VStack {
@@ -88,6 +93,7 @@ struct EditRecipeView: View {
                             .foregroundStyle(.ameixa)
                         Spacer()
                     }.zIndex(0)
+                    .preferredColorScheme(.light)
                 }
                 
             }
@@ -151,7 +157,7 @@ struct EditRecipeView: View {
                     .background(Color.cremeBranco)
                     .clipShape(RoundedRectangle(cornerRadius: 32))
                 }
-            }
+            }.preferredColorScheme(.light)
         }
         .listRowBackground(Color.clear)
         .onChange(of: newImage) {
