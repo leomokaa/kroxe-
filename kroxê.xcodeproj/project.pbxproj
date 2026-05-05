@@ -14,22 +14,9 @@
 		CE37C2F62F91015F00AE115A /* kroxê.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "kroxê.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CE5DC1B02FAA1CD1000CF4C6 /* Exceptions for "kroxê" folder in "kroxê" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"kroxe--Info.plist",
-			);
-			target = CE37C2F52F91015F00AE115A /* kroxê */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		CE37C2F82F91015F00AE115A /* kroxê */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CE5DC1B02FAA1CD1000CF4C6 /* Exceptions for "kroxê" folder in "kroxê" target */,
-			);
 			path = "kroxê";
 			sourceTree = "<group>";
 		};
