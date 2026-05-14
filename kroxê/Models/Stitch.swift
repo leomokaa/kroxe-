@@ -52,7 +52,7 @@ enum Stitch: Identifiable, Codable, CaseIterable {
     var abreviatedName: String {
         switch self {
         case .chain: return "corr"
-        case .magicRing: return "mr"
+        case .magicRing: return "am"
         case .slipStitch: return "pbx"
         case .singleCrochet: return "pb"
         case .halfDoubleCrochet: return "mpa"

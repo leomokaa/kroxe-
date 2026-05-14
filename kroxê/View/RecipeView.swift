@@ -74,14 +74,32 @@ struct ButtonInMenu: View {
                                     .frame(maxWidth: .infinity)
                                 }
                             } else {
-                                HStack(alignment: .center) {
-                                    Image("RecipeImageDefault")
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(maxWidth: .infinity, maxHeight: 148)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                if recipe.isFirstRecipe {
+                                    HStack(alignment: .center){
+                                        NavigationLink {
+                                            Image("FirstRecipeImage")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
+                                        } label: {
+                                            Image("FirstRecipeImage")
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(maxWidth: .infinity, maxHeight: 148)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                } else {
+                                    HStack(alignment: .center) {
+                                        Image("RecipeImageDefault")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(maxWidth: .infinity, maxHeight: 148)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    }
+                                    .frame(maxWidth: .infinity)
                                 }
-                                .frame(maxWidth: .infinity)
                             }
                         }
                         
@@ -253,8 +271,8 @@ struct ButtonInMenu: View {
             recipe: Recipe(
                 name: "Minha Primeira Receita",
                 link: "",
-                yarn: 0,
-                needle: 0.0,
+                yarn: 20,
+                needle: 01.0,
                 text: """
         #Receita
         Faça um nó inicial
@@ -271,7 +289,7 @@ struct ButtonInMenu: View {
         
         Use o contador de carreiras para acompanhar seu projeto enquanto faz.
         """,
-                counter: 0
+                counter: 0, isFirstRecipe: false
             )
         )
     }

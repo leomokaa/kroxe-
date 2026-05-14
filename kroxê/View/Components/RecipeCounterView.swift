@@ -39,10 +39,12 @@ struct RecipeCounterView: View {
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.circle)
                 .tint(.rosaSuave)
-                .font(.system(size: 32))
+                .font(.title)
+                .fontWeight(.medium)
                 
                 Text("\(recipe.counter)")
-                    .font(.system(size: 40))
+                    .font(.largeTitle)
+                    .fontWeight(.medium)
                     .foregroundStyle(.ameixa)
                     .frame(maxWidth: 100)
                 
@@ -56,7 +58,8 @@ struct RecipeCounterView: View {
                 .buttonStyle(.borderedProminent)
                 .buttonBorderShape(.circle)
                 .tint(.rosaSuave)
-                .font(.system(size: 32))
+                .font(.title)
+                .fontWeight(.medium)
             }
         }
         .frame(maxWidth: .infinity)
@@ -97,7 +100,7 @@ struct RecipeCounterView: View {
         sl st and f.o.
         Embroider a nose between rounds 10 and 11, mouth from 11  to 12
         """,
-        counter: 0
+        counter: 0, isFirstRecipe: false
     )
 )
 }
