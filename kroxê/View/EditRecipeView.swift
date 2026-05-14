@@ -155,16 +155,28 @@ struct EditRecipeView: View {
                     }
                     .frame(maxWidth: .infinity)
                 } else {
-                    VStack(spacing: 4) {
-                        Image(systemName: "photo.badge.plus.fill")
-                            .font(.largeTitle)
-                        Text("370x129")
-                            .font(.callout.bold())
+                    if recipe.isFirstRecipe {
+                        HStack(alignment: .center) {
+                            Image("FirstRecipeImage")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 370,height: 148)
+                                .clipShape(RoundedRectangle(cornerRadius: 32))
+                        }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(width: 370, height: 148)
-                    .background(Color.cremeBranco)
-                    .clipShape(RoundedRectangle(cornerRadius: 32))
+                    else {
+                        VStack(spacing: 4) {
+                            Image(systemName: "photo.badge.plus.fill")
+                                .font(.largeTitle)
+                            Text("370x129")
+                                .font(.callout.bold())
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(width: 370, height: 148)
+                        .background(Color.cremeBranco)
+                        .clipShape(RoundedRectangle(cornerRadius: 32))
+                    }
                 }
             }.preferredColorScheme(.light)
         }
@@ -197,6 +209,6 @@ struct EditRecipeView: View {
 
 #Preview {
     EditRecipeView(
-        recipe: Recipe(name: "Amanda", link: "", yarn: 100, needle: 10.0, text: "teste", counter: 0)
+        recipe: Recipe(name: "Amanda", link: "", yarn: 100, needle: 10.0, text: "teste", counter: 0, isFirstRecipe: false)
     )
 }

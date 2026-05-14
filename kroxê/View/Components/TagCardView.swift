@@ -15,6 +15,7 @@ struct TagCardView: View {
         HStack (spacing: 4){
 //            Image(systemName: tagIcon)
             Text(tagName)
+                .multilineTextAlignment(.leading)
         }
         .foregroundStyle(.ameixa)
         .font(.footnote.weight(.medium))

@@ -25,19 +25,32 @@ struct CardRecipeView: View {
                         .frame(maxWidth: .infinity)
                     }
                 } else {
-                    HStack(alignment: .center) {
-                        Image("RecipeImageDefault")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(maxWidth: .infinity, maxHeight: 129)
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                    if recipe.isFirstRecipe {
+                        HStack(alignment: .center) {
+                            Image("FirstRecipeImage")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(maxWidth: .infinity, maxHeight: 129)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        .frame(maxWidth: .infinity)
                     }
-                    .frame(maxWidth: .infinity)
+                    else {
+                        HStack(alignment: .center) {
+                            Image("RecipeImageDefault")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(maxWidth: .infinity, maxHeight: 129)
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
                 }
                 
                 VStack (alignment: .leading, spacing: 8) {
                     Text(recipe.name)
                         .font(.title2.bold())
+                        .multilineTextAlignment(.leading)
                     
                     HStack (spacing: 8){
                         if (!(recipe.needle == 0)) {
@@ -68,5 +81,5 @@ struct CardRecipeView: View {
 }
 
 #Preview {
-    CardRecipeView(recipe: Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "blabla", counter: 0))
+    CardRecipeView(recipe: Recipe(name: "Coelhinho", link: "", yarn: 2, needle: 3.5, text: "blabla", counter: 0, isFirstRecipe: false))
 }

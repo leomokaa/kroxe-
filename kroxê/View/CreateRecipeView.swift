@@ -23,6 +23,7 @@ struct CreateRecipeView: View {
     @State private var imageData: Data? = nil
     @State private var newImage: PhotosPickerItem? = nil
     @State private var counter: Int = 0
+    @State private var isFirstRecipe: Bool = false
     
     var body: some View {
         Form{
@@ -180,6 +181,7 @@ struct CreateRecipeView: View {
             needle: needle,
             text: text,
             counter: counter,
+            isFirstRecipe: isFirstRecipe
         )
         modelContext.insert(newRecipe)
     }
