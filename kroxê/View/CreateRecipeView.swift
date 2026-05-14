@@ -120,6 +120,14 @@ struct CreateRecipeView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(name.isEmpty || text.isEmpty)
             }
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                }
+                label: {
+                    Image(systemName: "xmark")
+                }
+            }
         }
         .navigationTitle("Criar Receita")
         .navigationTitleColor(.ameixa)

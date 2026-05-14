@@ -7,27 +7,15 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct RecipesListView: View {
+    
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Recipe.name) var recipes: [Recipe]
-    //    @State var searchResults: [Recipe] = []
-    //    @State var searchQuery: String = ""
-    
-    //    var isSearching: Bool {
-    //        return !searchQuery.isEmpty
-    //    }
-    //
-    //    private func fetchSearchResults(for query: String) {
-    //        searchResults = recipes.filter { Recipe in
-    //            Recipe.name
-    //                .lowercased()
-    //                .contains(searchQuery)
-    //        }
-    //    }
-    
-//    @State var toolbarVisibility: Visibility = .automatic
-    
+    @State var PresentSheet = false
+     
     var body: some View {
         NavigationStack {
             ZStack {
@@ -43,10 +31,15 @@ struct RecipesListView: View {
             .padding(.top, -6)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink(destination: CreateRecipeView()) {
-                        Image(systemName: "plus")
+                    Button ("", systemImage: "plus") {
+                        PresentSheet.toggle()
                     }
                     .buttonStyle(.borderedProminent)
+                    .sheet(isPresented: $PresentSheet) {
+                        NavigationStack {
+                            CreateRecipeView()
+                        }
+                    }
                 }
             }
             .navigationTitle("Receitas")

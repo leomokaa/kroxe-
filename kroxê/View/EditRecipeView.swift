@@ -125,6 +125,15 @@ struct EditRecipeView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(submitPermission())
             }
+            
+            ToolbarItem(placement: .cancellationAction) {
+                Button {
+                    dismiss()
+                }
+                label: {
+                    Image(systemName: "xmark")
+                }
+            }
         }
         .navigationTitle(Text("Editar Receita"))
         .navigationTitleColor(.ameixa)
