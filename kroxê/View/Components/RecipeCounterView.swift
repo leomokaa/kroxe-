@@ -62,7 +62,7 @@ struct RecipeCounterView: View {
                 .fontWeight(.medium)
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: 400)
         .padding(.horizontal, 10)
         .padding(.top, 18)
         .padding(.bottom, 12)

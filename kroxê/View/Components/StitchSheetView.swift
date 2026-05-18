@@ -39,6 +39,7 @@ struct StitchSheetView: View {
                         .frame(maxWidth: 300)
                 }
             }
+            .padding(.horizontal, 24)
             .navigationTitle(stitch.name)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading:
