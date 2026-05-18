@@ -11,23 +11,38 @@ import PhotosUI
 
 struct RecipesListView: View {
     
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \Recipe.name) var recipes: [Recipe]
+    @Query(sort: \Recipe.timestamp, order: .reverse) var recipes: [Recipe]
     @State var PresentSheet = false
-     
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                recepiesList
-                    .opacity(recipes.isEmpty ? 0 : 1)
+                ScrollView(showsIndicators: false){
+                    if horizontalSizeClass == .compact {
+                        VStack (spacing: 14) {
+                            recipiesItems
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 20)
+                    } else {
+                        LazyVGrid(columns: [GridItem(spacing: 14), GridItem()], spacing: 14) {
+                            recipiesItems
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 20)
+                    }
+                    
+                }
+                .opacity(recipes.isEmpty ? 0 : 1)
                 
                 emptyStateList
                     .opacity(recipes.isEmpty ? 1 : 0)
                 
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
             .padding(.top, -6)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -39,6 +54,7 @@ struct RecipesListView: View {
                         NavigationStack {
                             CreateRecipeView()
                         }
+                        .presentationSizing(.page)
                     }
                 }
             }
@@ -46,17 +62,17 @@ struct RecipesListView: View {
             .navigationTitleColor(.ameixa)
             .toolbarTitleDisplayMode(.inlineLarge)
             .backgroundCream()
-//            .toolbarVisibility(toolbarVisibility, for: .tabBar)
-//            .onAppear {
-//                withAnimation {
-//                    toolbarVisibility = .visible
-//                }
-//            }
-//            .onDisappear {
-//                withAnimation {
-//                    toolbarVisibility = .hidden
-//                }
-//            }
+            //            .toolbarVisibility(toolbarVisibility, for: .tabBar)
+            //            .onAppear {
+            //                withAnimation {
+            //                    toolbarVisibility = .visible
+            //                }
+            //            }
+            //            .onDisappear {
+            //                withAnimation {
+            //                    toolbarVisibility = .hidden
+            //                }
+            //            }
         }
         
         
@@ -70,20 +86,14 @@ struct RecipesListView: View {
         
     }
     
-    var recepiesList: some View {
-        ScrollView(showsIndicators: false){
-//                Text("Suas receitas de crochê em um só lugar")
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
-                    VStack (spacing: 14) {
-                        ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
-                            CardRecipeView(recipe: recipe)
-                        }
-                    }
-            
-            .padding(.vertical, 20)
-       }
-//        .scrollBounceBehavior()
+    var recipiesItems: some View {
+            //                Text("Suas receitas de crochê em um só lugar")
+            //                    .font(.subheadline)
+            //                    .foregroundColor(.secondary)
+            ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
+                CardRecipeView(recipe: recipe)
+            }
+        //        .scrollBounceBehavior()
     }
     
     var emptyStateList: some View {

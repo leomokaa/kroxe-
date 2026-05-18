@@ -17,6 +17,7 @@ struct AboutStitchView: View {
             VStack {
                 VStack (spacing: 52) {
                     Image("StitchCardsImage")
+                        .scaledToFill()
                         .frame(maxWidth: .infinity)
                     VStack (spacing: 16){
                         Text("Sem complicação")

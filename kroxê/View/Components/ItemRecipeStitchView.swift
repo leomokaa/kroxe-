@@ -19,8 +19,7 @@ struct CardRecipeStitchView: View {
                     Image(stitch.image)
                 }
                 .frame(width: 67, height: 73)
-                .sheet(isPresented: $shouldPresentSheet) {
-                } content: {
+                .popover(isPresented: $shouldPresentSheet) {
                     StitchSheetView(stitch: stitch)
                         .presentationDetents([.height(310)])
                 }
@@ -33,7 +32,7 @@ struct CardRecipeStitchView: View {
                 .multilineTextAlignment(.center)
                 .font(.caption.bold())
                 .foregroundColor(.ameixa)
-                .frame(maxWidth: .infinity)
+                .frame(width: 72)
         }
     }
 }

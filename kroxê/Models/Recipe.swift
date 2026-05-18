@@ -19,6 +19,7 @@ class Recipe {
     var text: String
     var counter: Int
     var isFirstRecipe: Bool
+    var timestamp: Date
     
     init(
         name: String,
@@ -28,7 +29,8 @@ class Recipe {
         needle: Float,
         text: String,
         counter: Int,
-        isFirstRecipe: Bool
+        isFirstRecipe: Bool,
+        timestamp: Date = Date()
     ) {
         self.name = name
         self.photo = photo
@@ -38,5 +40,6 @@ class Recipe {
         self.text = text
         self.counter = counter
         self.isFirstRecipe = isFirstRecipe
+        self.timestamp = timestamp
     }
 }
