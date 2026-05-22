@@ -47,10 +47,13 @@ struct CardRecipeView: View {
                     }
                 }
                 
-                VStack (alignment: .leading, spacing: 8) {
+                VStack (alignment: .leading, spacing: 6) {
                     Text(recipe.name)
+                        .lineLimit(1)
                         .font(.title2.bold())
                         .multilineTextAlignment(.leading)
+                    
+                    Spacer(minLength: 0)
                     
                     HStack (spacing: 8){
                         if (!(recipe.needle == 0)) {
@@ -73,7 +76,7 @@ struct CardRecipeView: View {
             .padding(.horizontal, 10)
             .padding(.top, 10)
             .padding(.bottom, 15)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cremeBranco, in: RoundedRectangle(cornerRadius: 15))
         }
     }

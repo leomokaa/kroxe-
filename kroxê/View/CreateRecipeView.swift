@@ -142,22 +142,34 @@ struct CreateRecipeView: View {
             Group {
                 if let imageData, let uiImage = UIImage(data: imageData) {
                     HStack(alignment: .center) {
-                        Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 370,height: 148)
-                            .clipShape(RoundedRectangle(cornerRadius: 32))
+                        Rectangle()
+                            .aspectRatio(3/1, contentMode: .fit)
+                            .overlay {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                     }
                     .frame(maxWidth: .infinity)
                 } else {
                     VStack(spacing: 4) {
-                        Image(systemName: "photo.badge.plus.fill")
-                            .font(.largeTitle)
-                        Text("370x129")
-                            .font(.callout.bold())
+                        Rectangle()
+                            .aspectRatio(3/1, contentMode: .fit)
+                            .overlay {
+                                VStack(spacing: 4) {
+                                    Image(systemName: "photo.badge.plus.fill")
+                                        .font(.largeTitle)
+                                        .foregroundStyle(.accent)
+                                    Text("370x129")
+                                        .font(.callout.bold())
+                                        .foregroundStyle(.accent)
+                                }
+                            }
+                            .foregroundStyle(.cremeBranco)
+                        
                     }
                     .frame(maxWidth: .infinity)
-                    .frame(width: 370, height: 148)
                     .background(Color.cremeBranco)
                     .clipShape(RoundedRectangle(cornerRadius: 32))
                 }

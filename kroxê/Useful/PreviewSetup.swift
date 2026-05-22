@@ -79,7 +79,7 @@ enum PreviewSetup {
         Use o contador de carreiras para acompanhar seu projeto enquanto faz.
         """,
                    counter: 0, isFirstRecipe: true),
-            Recipe(name: "pinha Primeira Receita",link: "", yarn: 1, needle: 2.0, text: """
+            Recipe(name: "pinha Primeira Receita la la la la la la la la la la la la la la",link: "", yarn: 0, needle: 0, text: """
         #Círculo
         Faça seu primeiro círculo, a extensão dessa receita pode gerar enfeites como tapete e centro de mesa.
 

@@ -47,11 +47,20 @@ struct RecipeView: View {
                                             .scaledToFit()
                                             .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
                                     } label: {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .scaledToFill()
-                                        //                                                .frame(maxWidth: .infinity, maxHeight: 148)
+                                        Rectangle()
+                                            .aspectRatio(3/1, contentMode: .fit)
+                                            .overlay {
+                                                Image(uiImage: uiImage)
+                                                    .resizable()
+                                                    .scaledToFill()
+                                            }
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        
+//                                        Image(uiImage: uiImage)
+//                                            .resizable()
+//                                            .scaledToFill()
+//                                        //                                                .frame(maxWidth: .infinity, maxHeight: 148)
+//                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                 }
                                 .frame(maxWidth: .infinity)
@@ -65,20 +74,34 @@ struct RecipeView: View {
                                             .scaledToFit()
                                             .navigationTransition(.zoom(sourceID: "zoom", in: namespace))
                                     } label: {
-                                        Image("FirstRecipeImage")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(maxWidth: .infinity, maxHeight: 148)
+                                        Rectangle()
+                                            .aspectRatio(3/1, contentMode: .fit)
+                                            .overlay {
+                                                Image("FirstRecipeImage")
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                
+                                            }
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        
+//                                        Image("FirstRecipeImage")
+//                                            .resizable()
+//                                            .scaledToFill()
+//                                            .frame(maxWidth: .infinity, maxHeight: 148)
+//                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                 }
                                 .frame(maxWidth: .infinity)
                             } else {
                                 HStack(alignment: .center) {
-                                    Image("RecipeImageDefault")
-                                        .resizable()
-                                    //                                            .scaledToFill()
-                                        .aspectRatio(5/4, contentMode: .fit)
+                                    Rectangle()
+                                        .aspectRatio(3/1, contentMode: .fit)
+                                        .overlay {
+                                            Image("RecipeImageDefault")
+                                                .resizable()
+                                                .scaledToFill()
+                                            
+                                        }
                                         .clipShape(RoundedRectangle(cornerRadius: 10))
                                 }
                                 .frame(maxWidth: .infinity)
