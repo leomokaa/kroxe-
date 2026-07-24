@@ -11,15 +11,15 @@ import PhotosUI
 @Model
 class Recipe {
     var id = UUID()
-    var name: String
+    var name: String = "Noname"
     var photo: Data?
-    var link: String
-    var yarn: Int
-    var needle: Float
-    var text: String
-    var counter: Int
-    var isFirstRecipe: Bool
-    var timestamp: Date
+    var link: String = "Nolink"
+    var yarn: Int = 0
+    var needle: Float = 0.0
+    var text: String = "Notext"
+    var counter: Int = 0
+    var isFirstRecipe: Bool = false
+    var timestamp: Date = Date()
     
     init(
         name: String,
