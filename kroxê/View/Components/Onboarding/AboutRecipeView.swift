@@ -11,19 +11,20 @@ struct AboutRecipeView: View {
     var body: some View {
         VStack{
             VStack {
-                VStack (spacing: 52) {
-                    Image("RecipeImage")
-                        .frame(maxWidth: .infinity)
-                    VStack (spacing: 16){
-                        Text("Sua receita, do seu jeito")
-                            .font(.title.bold())
-                            .multilineTextAlignment(.center)
-                        Text("Escreva livremente, separe por etapas e acompanhe cada carreira sem se perder enquanto faz.")
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(width: 312)
-                    .foregroundStyle(.ameixa)
+                Image("RecipeImage")
+                    .frame(maxWidth: .infinity, maxHeight: 300)
+                    .accessibilityHidden(true)
+                Spacer()
+                VStack (spacing: 16){
+                    Text("Sua receita, do seu jeito")
+                        .font(.title.bold())
+                        .multilineTextAlignment(.center)
+                    Text("Escreva livremente, separe por etapas e acompanhe cada carreira sem se perder enquanto faz.")
+                        .multilineTextAlignment(.center)
                 }
+                .frame(width: 312)
+                .foregroundStyle(.ameixa)
+                
                 Spacer()
                 
                 NavigationLink (destination: AboutStitchView()) {

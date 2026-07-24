@@ -15,20 +15,21 @@ struct AboutStitchView: View {
     var body: some View {
         VStack{
             VStack {
-                VStack (spacing: 52) {
-                    Image("StitchCardsImage")
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
-                    VStack (spacing: 16){
-                        Text("Sem complicação")
-                            .font(.title.bold())
-                            .multilineTextAlignment(.center)
-                        Text("Seus pontos ficam no topo da receita. Quando precisar, é só consultar o guia para relembrar quais são.")
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(width: 312)
-                    .foregroundStyle(.ameixa)
+                Image("StitchCardsImge")
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 300, alignment: .bottom)
+                    .accessibilityHidden(true)
+                Spacer()
+                VStack (spacing: 16){
+                    Text("Sem complicação")
+                        .font(.title.bold())
+                        .multilineTextAlignment(.center)
+                    Text("Seus pontos ficam no topo da receita. Quando precisar, é só consultar o guia para relembrar quais são.")
+                        .multilineTextAlignment(.center)
                 }
+                .frame(maxWidth: 300)
+                .foregroundStyle(.ameixa)
+                
                 Spacer()
                 
                 Button {

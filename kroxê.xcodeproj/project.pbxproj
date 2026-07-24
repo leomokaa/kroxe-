@@ -92,11 +92,10 @@
 				};
 			};
 			buildConfigurationList = CE37C2F12F91015F00AE115A /* Build configuration list for PBXProject "kroxê" */;
-			developmentRegion = en;
+			developmentRegion = "pt-BR";
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
+				"pt-BR",
 			);
 			mainGroup = CE37C2ED2F91015F00AE115A;
 			minimizedProjectReferenceProxies = 1;

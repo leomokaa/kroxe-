@@ -15,7 +15,8 @@ struct WelcomeSheetView: View {
                 Image("WelcomeImage")
                     .resizable()
                     .scaledToFill()
-                    .frame(maxWidth: .infinity, maxHeight: 400, alignment: .bottom)
+                    .frame(maxWidth: .infinity, maxHeight: 300, alignment: .bottom)
+                    .accessibilityHidden(true)
                 Spacer()
                 VStack (spacing: 10){
                     Text("Boas Vindas ao Kroxê!")
@@ -26,6 +27,7 @@ struct WelcomeSheetView: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal)
                 }
+                .frame(maxWidth: 300)
                 .foregroundStyle(.ameixa)
                 Spacer()
                 NavigationLink (destination: AboutRecipeView()) {
@@ -37,9 +39,13 @@ struct WelcomeSheetView: View {
                         .background(Color.accent, in: RoundedRectangle(cornerRadius: 296))
                 }
             }
-            .navigationTitle("Kroxê")
-            .navigationTitleColor(.creme)
-            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Kroxê")
+                        .foregroundStyle(.cremeHidden)
+                        .accessibilityHidden(true)
+                }
+            }
             .frame(maxHeight: .infinity)
             .padding(.bottom, 28)
             .backgroundCream()
