@@ -32,19 +32,18 @@ struct CreateRecipeView: View {
                     .accessibilityLabel(Text("Escolha uma foto para a receita"))
             }
             
-            Section(header: Text("Nome da Receita*")){
-                TextField("Digite o nome", text: $name)
+            Section(header: Text("Nome da Receita*").accessibilityLabel(Text("Nome da Receita"))){
+                TextField("Digite o nome da receita", text: $name)
                     .foregroundStyle(.ameixa)
-                    .accessibilityLabel(Text("Digite aqui o nome da receita"))
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
-            .accessibilityElement(children: .combine)
             
-            Section(header: Text("Informações adicionais")){
+            Section(header: Text("Informações adicionais").accessibilityLabel(Text("Informações adicionais"))){
                 HStack {
                     Text("Agulha: \(needle.formatted(.number.precision(.fractionLength(1)))) mm")
                         .foregroundStyle(.ameixa)
+                        .accessibilityHidden(true)
                     Stepper(
                         "",
                         value: $needle,
@@ -53,10 +52,15 @@ struct CreateRecipeView: View {
                     )
                     .foregroundStyle(.accent)
                     .preferredColorScheme(.light)
+                    .accessibilityLabel(Text("Selecione o tamanho da agulha"))
+                    .accessibilityValue((needle.formatted(.number.precision(.fractionLength(1)))))
                 }
+                .accessibilityElement(children: .combine)
+                
                 HStack {
                     Text("Nº de Novelos: \(yarn)")
                         .foregroundStyle(.ameixa)
+                        .accessibilityHidden(true)
                     Stepper(
                         "",
                         value: $yarn,
@@ -65,7 +69,10 @@ struct CreateRecipeView: View {
                     )
                     .foregroundStyle(.accent)
                     .preferredColorScheme(.light)
+                    .accessibilityValue(String(yarn))
+                    .accessibilityLabel(Text("Selecione a quantidade de novelos"))
                 }
+                .accessibilityElement(children: .combine)
             }
             .listRowBackground(Color.cremeBranco)
             
@@ -76,7 +83,8 @@ struct CreateRecipeView: View {
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
             
-            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
+            Section(header: Text("Receita*")
+                .accessibilityLabel(Text("Receita")), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.").accessibilityHidden(true)) {
                 
                 ZStack(alignment: .leading) {
                     if text.isEmpty {
@@ -87,6 +95,7 @@ struct CreateRecipeView: View {
                                 .foregroundColor(Color.secondary.opacity(0.45))
                                 .fontWeight(.regular)
                                 .font(.body)
+                                .accessibilityHidden(true)
                             Spacer(minLength: 20)
                         }.zIndex(1)
                          .preferredColorScheme(.light)
@@ -97,21 +106,21 @@ struct CreateRecipeView: View {
                             .frame(minHeight: 60)
                             .padding(.horizontal, -5)
                             .foregroundStyle(.ameixa)
+                            .accessibilityLabel(Text("Digite sua receita"))
+        
                         Spacer()
                     }.zIndex(0)
                     .preferredColorScheme(.light)
                 }
+                .accessibilityHint(Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, digite # antes do título, pule a linha e continue sua receita."))
                 
             }
             .listRowBackground(Color.cremeBranco)
-            
         }
         .listRowSpacing(10)
         .listSectionSpacing(10)
-        
         .scrollContentBackground(.hidden)
         .backgroundCream()
-        
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button {
@@ -123,7 +132,11 @@ struct CreateRecipeView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(name.isEmpty || text.isEmpty)
+                .accessibilityLabel(Text("Salvar receita"))
+                .accessibilityHint(Text("Para salvar a receita, é obrigatório adicionar um nome e digitá-la na caixa de texto"))
+                .accessibilityValue(false ? "Habilitado" : "Desabilitado")
             }
+            
             ToolbarItem(placement: .cancellationAction) {
                 Button {
                     dismiss()

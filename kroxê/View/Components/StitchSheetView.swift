@@ -18,25 +18,31 @@ struct StitchSheetView: View {
                     .padding(.horizontal, 6)
                     .padding(.vertical, 4)
                     .background(Color.lightRosaSuave, in: RoundedRectangle(cornerRadius: 10))
+                    .accessibilityHidden(true)
+                
                 VStack (spacing: 9){
                     VStack (spacing: 1){
                         HStack(spacing: 4){
                             Text(stitch.name)
                                 .font(.body.bold())
                                 .foregroundStyle(Color(.ameixa))
+                                .accessibilityLabel(Text("Nome do ponto: \(stitch.name)"))
                             Text("(\(stitch.abreviatedName))")
                                 .foregroundStyle(Color(.accent))
                                 .font(.body.bold())
+                                .accessibilityLabel(Text("Abreviação: \(stitch.abreviatedName)"))
                         }
                         Text(stitch.translation)
                             .font(.footnote)
                             .foregroundStyle(Color(.secondaryLabel))
+                            .accessibilityLabel(Text("Em inglês: \(stitch.translation)"))
                     }
                     Text(stitch.description)
                         .foregroundStyle(Color(.ameixa))
                         .font(.subheadline)
                         .multilineTextAlignment(.center)
                         .frame(maxWidth: 300)
+                        .accessibilityLabel(Text("Descrição: \(stitch.description)"))
                 }
             }
             .padding(.horizontal, 24)

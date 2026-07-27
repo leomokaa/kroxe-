@@ -17,6 +17,7 @@ struct CardRecipeStitchView: View {
             VStack{
                 Button (action: {shouldPresentSheet.toggle() }) {
                     Image(stitch.image)
+                        .accessibilityHidden(true)
                 }
                 .frame(width: 67, height: 73)
                 .popover(isPresented: $shouldPresentSheet) {
@@ -34,6 +35,9 @@ struct CardRecipeStitchView: View {
                 .foregroundColor(.ameixa)
                 .frame(width: 72)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("\(stitch.name)"))
+        .accessibilityHint(Text("Clique para saber detalhes do ponto"))
     }
 }
 

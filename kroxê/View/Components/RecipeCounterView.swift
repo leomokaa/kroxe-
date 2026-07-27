@@ -16,6 +16,7 @@ struct RecipeCounterView: View {
                 Text ("Carreiras")
                     .font(.title3.bold())
                     .foregroundStyle(.ameixa)
+                    .accessibilityLabel(Text("Contador de carreiras"))
                 
                 Spacer()
                 
@@ -23,6 +24,8 @@ struct RecipeCounterView: View {
                     recipe.counter = 0
                 }
                 .font(.title3)
+                .accessibilityLabel(Text("Reiniciar contador"))
+                .accessibilityHint(Text("Clique para zerar o contador de carreiras"))
             }
             
             HStack(spacing: 0) {
@@ -61,6 +64,8 @@ struct RecipeCounterView: View {
                 .font(.title)
                 .fontWeight(.medium)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityValue(Text("\(recipe.counter)"))
         }
         .frame(maxWidth: 400)
         .padding(.horizontal, 10)

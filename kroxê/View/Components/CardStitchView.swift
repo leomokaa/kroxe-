@@ -26,7 +26,7 @@ struct CardStitchView: View {
                         Text("(\(stitch.abreviatedName))")
                             .foregroundStyle(Color(.accent))
                             .font(.body.bold())
-                            .accessibilityLabel(Text("Abreviação do ponto: \(stitch.abreviatedName)"))
+                            .accessibilityLabel(Text("Abreviação: \(stitch.abreviatedName)"))
                         
                         Spacer()
                     }
@@ -34,12 +34,13 @@ struct CardStitchView: View {
                     Text(stitch.translation)
                         .font(.footnote)
                         .foregroundStyle(Color(.secondaryLabel))
-                        .accessibilityLabel(Text("Tradução do ponto para o inglês: \(stitch.description)"))
+                        .accessibilityLabel(Text("Em inglês: \(stitch.translation)"))
+                    
                 }
                 Text(stitch.description)
                     .foregroundStyle(Color(.ameixa))
                     .font(.subheadline)
-                    .accessibilityLabel(Text("Descrição do ponto: \(stitch.description)"))
+                    .accessibilityLabel(Text("Descrição: \(stitch.description)"))
             }
             
         }
