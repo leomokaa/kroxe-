@@ -62,6 +62,7 @@ struct RecipesListView: View {
             .navigationTitleColor(.ameixa)
             .toolbarTitleDisplayMode(.inlineLarge)
             .backgroundCream()
+            .accessibilityHidden(PresentSheet)
             //            .toolbarVisibility(toolbarVisibility, for: .tabBar)
             //            .onAppear {
             //                withAnimation {
@@ -73,6 +74,12 @@ struct RecipesListView: View {
             //                    toolbarVisibility = .hidden
             //                }
             //            }
+        }
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button(role: .destructive) {
+            } label: {
+                Label("Apagar", systemImage: "trash")
+            }
         }
         
         
@@ -92,6 +99,12 @@ struct RecipesListView: View {
             //                    .foregroundColor(.secondary)
             ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
                 CardRecipeView(recipe: recipe)
+            }
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                Button(role: .destructive) {
+                } label: {
+                    Label("Apagar", systemImage: "trash")
+                }
             }
         //        .scrollBounceBehavior()
     }

@@ -32,6 +32,7 @@ struct CardRecipeView: View {
                                 .scaledToFill()
                                 .frame(maxWidth: .infinity, maxHeight: 129)
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .accessibilityHidden(true)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -42,6 +43,7 @@ struct CardRecipeView: View {
                                 .scaledToFill()
                                 .frame(maxWidth: .infinity, maxHeight: 129)
                                 .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .accessibilityHidden(true)
                         }
                         .frame(maxWidth: .infinity)
                     }
@@ -58,14 +60,17 @@ struct CardRecipeView: View {
                     HStack (spacing: 8){
                         if (!(recipe.needle == 0)) {
                             TagCardView(tagIcon: "wand.and.outline", tagName: "Agulha de \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) mm")
+                                .accessibilityLabel(Text("Agulha: \(recipe.needle.formatted(.number.precision(.fractionLength(1)))) millímetros"))
                         }
                         
                         if (!(recipe.yarn == 0)) {
                             if (!(recipe.yarn == 1)) {
                                 TagCardView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelos")
+                                    .accessibilityLabel(Text("Novelos necessários: \(recipe.yarn)"))
                             }
                             else {
                                 TagCardView(tagIcon: "circle", tagName: "\(recipe.yarn) Novelo")
+                                    .accessibilityLabel(Text("Novelos necessários: \(recipe.yarn)"))
                             }
                         }
                     }
@@ -78,6 +83,7 @@ struct CardRecipeView: View {
             .padding(.bottom, 15)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cremeBranco, in: RoundedRectangle(cornerRadius: 15))
+            .accessibilityElement(children: .combine)
         }
     }
         
