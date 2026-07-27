@@ -29,14 +29,17 @@ struct CreateRecipeView: View {
         Form{
             Section(){
                 photoPicker
+                    .accessibilityLabel(Text("Escolha uma foto para a receita"))
             }
             
             Section(header: Text("Nome da Receita*")){
                 TextField("Digite o nome", text: $name)
                     .foregroundStyle(.ameixa)
+                    .accessibilityLabel(Text("Digite aqui o nome da receita"))
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
+            .accessibilityElement(children: .combine)
             
             Section(header: Text("Informações adicionais")){
                 HStack {
