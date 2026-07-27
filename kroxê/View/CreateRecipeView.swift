@@ -96,6 +96,7 @@ struct CreateRecipeView: View {
                                 .fontWeight(.regular)
                                 .font(.body)
                                 .accessibilityHidden(true)
+                            
                             Spacer(minLength: 20)
                         }.zIndex(1)
                          .preferredColorScheme(.light)
@@ -109,11 +110,11 @@ struct CreateRecipeView: View {
                             .accessibilityLabel(Text("Digite sua receita"))
         
                         Spacer()
-                    }.zIndex(0)
+                    }
+                    .zIndex(0)
                     .preferredColorScheme(.light)
                 }
                 .accessibilityHint(Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, digite # antes do título, pule a linha e continue sua receita."))
-                
             }
             .listRowBackground(Color.cremeBranco)
         }
@@ -134,7 +135,7 @@ struct CreateRecipeView: View {
                 .disabled(name.isEmpty || text.isEmpty)
                 .accessibilityLabel(Text("Salvar receita"))
                 .accessibilityHint(Text("Para salvar a receita, é obrigatório adicionar um nome e digitá-la na caixa de texto"))
-                .accessibilityValue(false ? "Habilitado" : "Desabilitado")
+                .accessibilityValue(name.isEmpty || text.isEmpty ? "Desabilitado" : "Habilitado")
             }
             
             ToolbarItem(placement: .cancellationAction) {
