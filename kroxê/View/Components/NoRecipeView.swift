@@ -12,6 +12,7 @@ struct NoRecipeView: View {
         VStack{
             VStack(spacing: 12){
                 Image("NoRecipeIllustra")
+                    .accessibilityHidden(true)
                 VStack(spacing: 4){
                     Text("Você não tem receitas")
                         .font(.headline)
