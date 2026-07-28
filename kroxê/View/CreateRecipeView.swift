@@ -214,6 +214,14 @@ struct CreateRecipeView: View {
             isFirstRecipe: isFirstRecipe
         )
         modelContext.insert(newRecipe)
+        
+        Task{
+            do{
+                try modelContext.save()
+            } catch{
+                
+            }
+        }
     }
 }
 
