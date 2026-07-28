@@ -26,19 +26,21 @@ struct EditRecipeView: View {
         Form{
             Section(){
                 photoPicker
+                    .accessibilityLabel(Text("Escolha uma foto para a receita"))
             }
             
-            Section(header: Text("Nome da Receita*")){
+            Section(header: Text("Nome da Receita*").accessibilityLabel(Text("Nome da Receita"))){
                 TextField("Digite o nome", text: $nameEdit)
                     .foregroundStyle(.ameixa)
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
             
-            Section(header: Text("Informações adicionais")){
+            Section(header: Text("Informações adicionais").accessibilityLabel(Text("Informações adicionais"))){
                 HStack {
                     Text("Agulha: \(needleEdit.formatted(.number.precision(.fractionLength(1)))) mm")
                         .foregroundStyle(.ameixa)
+                        .accessibilityHidden(true)
                     Stepper(
                         "",
                         value: $needleEdit,
@@ -47,10 +49,15 @@ struct EditRecipeView: View {
                     )
                     .foregroundStyle(.accent)
                     .preferredColorScheme(.light)
+                    .accessibilityLabel(Text("Selecione o tamanho da agulha"))
+                    .accessibilityValue((needleEdit.formatted(.number.precision(.fractionLength(1)))))
                 }
+                .accessibilityElement(children: .combine)
+                
                 HStack {
                     Text("Nº de Novelos: \(yarnEdit)")
                         .foregroundStyle(.ameixa)
+                        .accessibilityHidden(true)
                     Stepper(
                         "",
                         value: $yarnEdit,
@@ -59,18 +66,22 @@ struct EditRecipeView: View {
                     )
                     .foregroundStyle(.accent)
                     .preferredColorScheme(.light)
+                    .accessibilityValue(String(yarnEdit))
+                    .accessibilityLabel(Text("Selecione a quantidade de novelos"))
                 }
+                .accessibilityElement(children: .combine)
             }
             .listRowBackground(Color.cremeBranco)
             
-            Section(header: Text("Link do Tutorial")) {
+            Section(header: Text("Link do Tutorial"), footer: Text("O botão de acesso ao tutorial só funcionará se o link for válido.").accessibilityHidden(true)) {
                 TextField("Digite o url do tutorial", text: $linkEdit)
                     .foregroundStyle(.ameixa)
+                    .accessibilityHint(Text("O botão de acesso ao tutorial só funcionará se o link for válido."))
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
             
-            Section(header: Text("Receita*"), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.")) {
+            Section(header: Text("Receita*").accessibilityLabel(Text("Receita")), footer: Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, escreva # antes do título, pule a linha e continue sua receita.").accessibilityHidden(true)) {
                 
                 ZStack(alignment: .leading) {
                     if textEdit.isEmpty {
@@ -81,6 +92,8 @@ struct EditRecipeView: View {
                                 .foregroundColor(Color.secondary.opacity(0.45))
                                 .fontWeight(.regular)
                                 .font(.body)
+                                .accessibilityHidden(true)
+                            
                             Spacer(minLength: 20)
                         }.zIndex(1)
                             .preferredColorScheme(.light)
@@ -91,11 +104,14 @@ struct EditRecipeView: View {
                             .frame(minHeight: 60)
                             .padding(.horizontal, -5)
                             .foregroundStyle(.ameixa)
+                            .accessibilityLabel(Text("Digite sua receita"))
+                        
                         Spacer()
-                    }.zIndex(0)
+                    }
+                    .zIndex(0)
                     .preferredColorScheme(.light)
                 }
-                
+                .accessibilityHint(Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, digite # antes do título, pule a linha e continue sua receita."))
             }
             .listRowBackground(Color.cremeBranco)
         }
@@ -124,6 +140,9 @@ struct EditRecipeView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(submitPermission())
+                .accessibilityLabel(Text("Salvar receita"))
+                .accessibilityHint(Text("Para salvar a receita, é obrigatório adicionar um nome e digitá-la na caixa de texto"))
+                .accessibilityValue(submitPermission() ? "Desabilitado" : "Habilitado")
             }
             
             ToolbarItem(placement: .cancellationAction) {

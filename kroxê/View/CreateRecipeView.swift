@@ -76,9 +76,10 @@ struct CreateRecipeView: View {
             }
             .listRowBackground(Color.cremeBranco)
             
-            Section(header: Text("Link do Tutorial")) {
+            Section(header: Text("Link do Tutorial"), footer: Text("O botão de acesso ao tutorial só funcionará se o link for válido.").accessibilityHidden(true)) {
                 TextField("Digite o url do tutorial", text: $link)
                     .foregroundStyle(.ameixa)
+                    .accessibilityHint(Text("O botão de acesso ao tutorial só funcionará se o link for válido."))
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
@@ -96,6 +97,7 @@ struct CreateRecipeView: View {
                                 .fontWeight(.regular)
                                 .font(.body)
                                 .accessibilityHidden(true)
+                            
                             Spacer(minLength: 20)
                         }.zIndex(1)
                          .preferredColorScheme(.light)
@@ -109,11 +111,11 @@ struct CreateRecipeView: View {
                             .accessibilityLabel(Text("Digite sua receita"))
         
                         Spacer()
-                    }.zIndex(0)
+                    }
+                    .zIndex(0)
                     .preferredColorScheme(.light)
                 }
                 .accessibilityHint(Text("Para escrever sua receita, você pode criar títulos e separar suas etapas. Para isso, digite # antes do título, pule a linha e continue sua receita."))
-                
             }
             .listRowBackground(Color.cremeBranco)
         }
@@ -134,7 +136,7 @@ struct CreateRecipeView: View {
                 .disabled(name.isEmpty || text.isEmpty)
                 .accessibilityLabel(Text("Salvar receita"))
                 .accessibilityHint(Text("Para salvar a receita, é obrigatório adicionar um nome e digitá-la na caixa de texto"))
-                .accessibilityValue(false ? "Habilitado" : "Desabilitado")
+                .accessibilityValue(name.isEmpty || text.isEmpty ? "Desabilitado" : "Habilitado")
             }
             
             ToolbarItem(placement: .cancellationAction) {
