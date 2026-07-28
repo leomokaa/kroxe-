@@ -11,71 +11,137 @@ struct RecipeCounterView: View {
     var recipe: Recipe
     
     var body: some View {
-        VStack (spacing: 6) {
-            HStack {
-                Text ("Carreiras")
-                    .font(.title3.bold())
-                    .foregroundStyle(.ameixa)
-                    .accessibilityLabel(Text("Contador de carreiras"))
-                
-                Spacer()
-                
-                Button ("", systemImage: "arrow.counterclockwise") {
-                    recipe.counter = 0
-                }
-                .font(.title3)
-                .accessibilityLabel(Text("Reiniciar contador"))
-                .accessibilityHint(Text("Clique para zerar o contador de carreiras"))
-            }
-            
-            HStack(spacing: 0) {
-                Button {
-                    if recipe.counter > 0 {
-                        recipe.counter -= 1
+        if #available(iOS 26.0, *) {
+            VStack (spacing: 6) {
+                HStack {
+                    Text ("Carreiras")
+                        .font(.title3.bold())
+                        .foregroundStyle(.ameixa)
+                        .accessibilityLabel(Text("Contador de carreiras"))
+                    
+                    Spacer()
+                    
+                    Button ("", systemImage: "arrow.counterclockwise") {
+                        recipe.counter = 0
                     }
+                    .font(.title3)
+                    .accessibilityLabel(Text("Reiniciar contador"))
+                    .accessibilityHint(Text("Clique para zerar o contador de carreiras"))
                 }
-                label: {
-                    Image(systemName: "minus")
-                        .frame(height: 70)
-                }
-                .disabled(recipe.counter == 0)
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .tint(.rosaSuave)
-                .font(.title)
-                .fontWeight(.medium)
                 
-                Text("\(recipe.counter)")
-                    .font(.largeTitle)
+                HStack(spacing: 0) {
+                    Button {
+                        if recipe.counter > 0 {
+                            recipe.counter -= 1
+                        }
+                    }
+                    label: {
+                        Image(systemName: "minus")
+                            .frame(height: 70)
+                    }
+                    .disabled(recipe.counter == 0)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.rosaSuave)
+                    .font(.title)
                     .fontWeight(.medium)
-                    .foregroundStyle(.ameixa)
-                    .frame(maxWidth: 100)
-                
-                Button {
-                    recipe.counter += 1
+                    
+                    Text("\(recipe.counter)")
+                        .font(.largeTitle)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.ameixa)
+                        .frame(maxWidth: 100)
+                    
+                    Button {
+                        recipe.counter += 1
+                    }
+                    label: {
+                        Image(systemName: "plus")
+                            .frame(height: 70)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.rosaSuave)
+                    .font(.title)
+                    .fontWeight(.medium)
                 }
-                label: {
-                    Image(systemName: "plus")
-                        .frame(height: 70)
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.circle)
-                .tint(.rosaSuave)
-                .font(.title)
-                .fontWeight(.medium)
+                .accessibilityElement(children: .combine)
+                .accessibilityValue(Text("\(recipe.counter)"))
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityValue(Text("\(recipe.counter)"))
+            .frame(maxWidth: 400)
+            .padding(.horizontal, 10)
+            .padding(.top, 18)
+            .padding(.bottom, 12)
+            .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 20))
+            //        glassView.cornerConfiguration = uniformTopRadius(0)
+            .padding(.horizontal, 33)
+            .padding(.bottom, 10)
+            .preferredColorScheme(.light)
+        } else {
+            VStack (spacing: 6) {
+                HStack {
+                    Text ("Carreiras")
+                        .font(.title3.bold())
+                        .foregroundStyle(.ameixa)
+                        .accessibilityLabel(Text("Contador de carreiras"))
+                    
+                    Spacer()
+                    
+                    Button ("", systemImage: "arrow.counterclockwise") {
+                        recipe.counter = 0
+                    }
+                    .font(.title3)
+                    .accessibilityLabel(Text("Reiniciar contador"))
+                    .accessibilityHint(Text("Clique para zerar o contador de carreiras"))
+                }
+                
+                HStack(spacing: 0) {
+                    Button {
+                        if recipe.counter > 0 {
+                            recipe.counter -= 1
+                        }
+                    }
+                    label: {
+                        Image(systemName: "minus")
+                            .frame(height: 70)
+                    }
+                    .disabled(recipe.counter == 0)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.rosaSuave)
+                    .font(.title)
+                    .fontWeight(.medium)
+                    
+                    Text("\(recipe.counter)")
+                        .font(.largeTitle)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.ameixa)
+                        .frame(maxWidth: 100)
+                    
+                    Button {
+                        recipe.counter += 1
+                    }
+                    label: {
+                        Image(systemName: "plus")
+                            .frame(height: 70)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.circle)
+                    .tint(.rosaSuave)
+                    .font(.title)
+                    .fontWeight(.medium)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityValue(Text("\(recipe.counter)"))
+            }
+            .frame(maxWidth: 400)
+            .padding(.horizontal, 10)
+            .padding(.top, 18)
+            .padding(.bottom, 12)
+            .padding(.horizontal, 33)
+            .padding(.bottom, 10)
+            .preferredColorScheme(.light)
         }
-        .frame(maxWidth: 400)
-        .padding(.horizontal, 10)
-        .padding(.top, 18)
-        .padding(.bottom, 12)
-        .glassEffect(.regular, in: RoundedRectangle(cornerRadius: 20))
-//        glassView.cornerConfiguration = uniformTopRadius(0)
-        .padding(.horizontal, 33)
-        .padding(.bottom, 10)
-        .preferredColorScheme(.light)
     }
 }
 
