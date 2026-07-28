@@ -73,9 +73,10 @@ struct EditRecipeView: View {
             }
             .listRowBackground(Color.cremeBranco)
             
-            Section(header: Text("Link do Tutorial")) {
+            Section(header: Text("Link do Tutorial"), footer: Text("O botão de acesso ao tutorial só funcionará se o link for válido.").accessibilityHidden(true)) {
                 TextField("Digite o url do tutorial", text: $linkEdit)
                     .foregroundStyle(.ameixa)
+                    .accessibilityHint(Text("O botão de acesso ao tutorial só funcionará se o link for válido."))
             }
             .listRowBackground(Color.cremeBranco)
             .preferredColorScheme(.light)
