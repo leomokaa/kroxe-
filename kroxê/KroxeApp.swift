@@ -15,22 +15,6 @@ struct kroxe_App: App {
     @AppStorage("isFirstLaunch") var isFirstLaunch = true
     @AppStorage("didAddSampleRecipe") var didAddSampleRecipe = false
     
-    var sharedModelContainer: ModelContainer = {
-            let schema = Schema([
-                Recipe.self
-            ])
-
-            let modelConfiguration = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
-            
-            do {
-                return try ModelContainer(for: schema, configurations: [modelConfiguration])
-            } catch {
-                //Isso é passível a problemas!
-                //Principalmente se o usuário não tiver espaço no celular
-                fatalError("Não foi possível criar o ModelContainer: \(error)")
-            }
-    }()
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -38,6 +22,7 @@ struct kroxe_App: App {
                     WelcomeSheetView()
                 }
         }
+//        .modelContainer(sharedModelContainer)
         .modelContainer(for: [Recipe.self]) { //cria receitas quando abre o app assim que instala
             guard !didAddSampleRecipe else { return }
             

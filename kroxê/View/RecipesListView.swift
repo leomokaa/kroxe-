@@ -85,7 +85,9 @@ struct RecipesListView: View {
             //                }
             //            }
         }
-        
+        .onChange(of: recipes){
+            removeDuplicates(recipes: recipes)
+        }
         
         
         //            .searchable(
@@ -95,6 +97,18 @@ struct RecipesListView: View {
         //            )
         //            .searchToolbarBehavior(.minimize)
         
+    }
+    
+    func removeDuplicates(recipes: [Recipe]) {
+        if recipes.count > 1 {
+            if recipes.count(where: {$0.isFirstRecipe}) >= 2{
+                if let deletFirstRecipe = recipes.first(where: {$0.isFirstRecipe == true}) {
+                    modelContext.delete(deletFirstRecipe)
+                }
+                
+                return
+            }
+        }
     }
     
     var ipadItems: some View {
@@ -152,6 +166,11 @@ struct RecipesListView: View {
     
     var iphoneItems: some View {
         List{
+    
+//    var recipiesItems: some View {
+            //                Text("Suas receitas de crochê em um só lugar")
+            //                    .font(.subheadline)
+            //                    .foregroundColor(.secondary)
             ForEach(recipes.enumerated(), id: \.offset) { index, recipe in
                 CardRecipeView(recipe: recipe)
                     .listRowBackground(EmptyView())
