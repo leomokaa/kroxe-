@@ -22,7 +22,6 @@ struct kroxe_App: App {
                     WelcomeSheetView()
                 }
         }
-//        .modelContainer(sharedModelContainer)
         .modelContainer(for: [Recipe.self]) { //cria receitas quando abre o app assim que instala
             guard !didAddSampleRecipe else { return }
             

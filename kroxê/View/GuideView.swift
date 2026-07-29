@@ -11,9 +11,6 @@ struct GuideView: View {
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false){
-//                    Text("Conheça os pontos de crochê")
-//                        .font(.subheadline)
-//                        .foregroundColor(.secondary)
                     VStack (spacing: 10) {
                         CardStitchView(stitch: Stitch.chain)
                         CardStitchView(stitch: Stitch.magicRing)
@@ -39,8 +36,6 @@ struct GuideView: View {
     }
     
 }
-
-//        .backgroundCream()
 
 
 

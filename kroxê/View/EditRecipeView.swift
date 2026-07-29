@@ -158,7 +158,16 @@ struct EditRecipeView: View {
         .navigationTitleColor(.ameixa)
         .toolbarTitleDisplayMode(.inline)
         
+        //dismiss do teclado
+        .onTapGesture {
+            dismissKeyboard()
+        }
+        
         .padding(.top, -32)
+    }
+    
+    func dismissKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     private var photoPicker: some View {

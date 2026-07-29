@@ -9,21 +9,10 @@ import SwiftUI
 import OrderedCollections
 import SwiftData
 
-//extension String {
-//    func highlighted(keywords: [String]) -> String {
-//        var result: String = self
-//        for keyword in keywords {
-//            let keywordWithoutSpaces = keyword.replacingOccurrences(of: " ", with: "")
-//            result = result.replacingOccurrences(of: keyword, with: "**\(keywordWithoutSpaces)**")
-//        }
-//        return result
-//    }
-//}
-
 struct RecipeView: View {
     
     @Environment(\.modelContext)
-    var modelContext //modelContext.delete(model)
+    var modelContext
     @Environment(\.dismiss) private var dismiss
     @State var PresentSheet = false
     
@@ -42,6 +31,7 @@ struct RecipeView: View {
                             if let uiImage = UIImage(data: data) {
                                 HStack(alignment: .center){
                                     NavigationLink {
+                                        //quando tiver imagem
                                         Image(uiImage: uiImage)
                                             .resizable()
                                             .scaledToFit()
@@ -55,12 +45,6 @@ struct RecipeView: View {
                                                     .scaledToFill()
                                             }
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        
-//                                        Image(uiImage: uiImage)
-//                                            .resizable()
-//                                            .scaledToFill()
-//                                        //                                                .frame(maxWidth: .infinity, maxHeight: 148)
-//                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                 }
                                 .frame(maxWidth: .infinity)
@@ -69,6 +53,7 @@ struct RecipeView: View {
                             if recipe.isFirstRecipe {
                                 HStack(alignment: .center){
                                     NavigationLink {
+                                        //quando for a primeira receita
                                         Image("FirstRecipeImage")
                                             .resizable()
                                             .scaledToFit()
@@ -83,12 +68,6 @@ struct RecipeView: View {
                                                 
                                             }
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        
-//                                        Image("FirstRecipeImage")
-//                                            .resizable()
-//                                            .scaledToFill()
-//                                            .frame(maxWidth: .infinity, maxHeight: 148)
-//                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                 }
                                 .frame(maxWidth: .infinity)
@@ -97,6 +76,7 @@ struct RecipeView: View {
                                     Rectangle()
                                         .aspectRatio(3/1, contentMode: .fit)
                                         .overlay {
+                                            //quando não tiver imagem
                                             Image("RecipeImageDefault")
                                                 .resizable()
                                                 .scaledToFill()
@@ -109,10 +89,12 @@ struct RecipeView: View {
                         }
                     }
                     
+                    //nome
                     Text(recipe.name)
                         .font(.title.bold())
                         .foregroundStyle(.ameixa)
                     
+                    //tags
                     if (!(recipe.needle == 0) || !(recipe.yarn == 0)) {
                         HStack (spacing: 8){
                             if (!(recipe.needle == 0)) {
@@ -131,7 +113,7 @@ struct RecipeView: View {
                     }
                 }
                 
-                //para mostrar os pontos
+                //pontos
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack(alignment: .top){
                         ForEach(stitchs(in: recipe.text)) { stitch in
@@ -140,6 +122,7 @@ struct RecipeView: View {
                     }
                 }
                 
+                //receita
                 Text(
                     hightlighTitles(
                         highlightKeywords(recipe.text)
@@ -147,13 +130,6 @@ struct RecipeView: View {
                 )
                 .lineSpacing(6)
                 .foregroundStyle(.ameixa)
-                //                .overlay (
-                //                    Image (systemName: "hand. thumbsup-fill")
-                //                        .font(.system(size: 200))
-                //                        .opacity(0.7)
-                //                        .frame(width: 450, height: 300, alignment: .bottom)
-                //                        .glassEffect()
-                //                )
             }
             .padding(.top, 10)
             .padding(.bottom, 170)
@@ -164,11 +140,7 @@ struct RecipeView: View {
         .overlay (alignment: .bottom) {
             RecipeCounterView(recipe: recipe)
         }
-        //        .sheet(isPresented: $bool, content: {
-        //
-        //                })
-        //                    .padding()
-        //                    .frame(width: 40, height: 30)
+        
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
@@ -186,19 +158,23 @@ struct RecipeView: View {
                     
                     Button("Excluir Receita", systemImage: "trash", role: .destructive) {
                         isDeleting = true
-                        
                     }
                     
                 }, label: {Image(systemName: "ellipsis")})
             }
         }
+        
+        //editar
         .sheet(isPresented: $PresentSheet) {
             NavigationStack {
                 EditRecipeView(recipe: recipe)
             }
             .presentationSizing(.page)
         }
+        
         .backgroundCream()
+        
+        //excluir
         .alert("Excluir receita", isPresented: $isDeleting, actions: {
             HStack {
                 Button("Cancelar", role: .cancel) {
@@ -264,13 +240,6 @@ struct RecipeView: View {
         return attributedString
     }
     
-    //    func isValidUrl(string: String) -> Bool {
-    //        let urlRegEx = "^(https?://)?(www\\.)?([-a-z0-9]{1,63}\\.)*?[a-z0-9][-a-z0-9]{0,61}[a-z0-9]\\.[a-z]{2,6}(/[-\\w@\\+\\.~#\\?&/=%]*)?$"
-    //        let urlTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-    //        let result = urlTest.evaluate(with: url)
-    //        return result
-    //    }
-    
 }
 
 #Preview {
@@ -300,28 +269,4 @@ struct RecipeView: View {
         )
     )
 }
-
-//struct TitleHighlightView: View {
-//
-//    let string = """
-//            #TITLE 1
-//            aaaaaaa
-//            aaaaaaa
-//            aaaaaaa
-//
-//            #TITLE 2
-//            bbbbbbb
-//            bbbbbbb
-//            bbbbbbb
-//            """
-//
-//    var body: some View {
-//        Text(hightlighted())
-//    }
-//
-//}
-//
-//#Preview {
-//    TitleHighlightView()
-//}
 

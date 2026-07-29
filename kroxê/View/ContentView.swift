@@ -29,18 +29,6 @@ struct ContentView: View {
         }
     }
 }
-//            SearchScreen()
-//                            .background(Color("BackgroundColor"))
-//                            .tabItem{
-//                                Image(systemName: "magnifyingglass")
-//                            }
-//        }.searchable(
-//            text: $searchQuery,
-//            placement: .toolbar,
-//            prompt: "Pesquise Receitas"
-//        )
-//        .searchToolbarBehavior(.minimize)
-//    }
 
 
 #Preview {
